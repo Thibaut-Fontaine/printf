@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/02/11 04:46:20 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/02/11 07:06:58 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ int					ft_printf(const char *format, ...);
 int					ft_oprintf(int fd, const char *format, ...);
 int					ft_vprintf(const char *format, va_list ap);
 int					ft_voprintf(int fd, const char *format, va_list ap);
-int					ft_output(int *fd);
 
 #endif
