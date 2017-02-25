@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/02/20 17:10:01 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/02/25 23:33:47 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,51 @@
 */
 
 /*
+** s : ft_putstr
+** S : ft_putwstr
+** p : pointer
+** d : ft_putnbr
+** D : long d
+** i : ft_putnbr
+** o : unsigned decimal to octal
+** O : long o
+** u : unsigned decimal to unsigned decimal
+** U : long U
+** x : unsigned decimal to hexa, using abcdef
+** X : same, using ABCDEF
+** c : decimal to char
+** C : long c
+*/
+
+void		(*ft_type(const char *s))()
+{
+	while (*s)
+	{
+		// si s renvoyer putstr, si S renvoer putwstr, etc
+		++s;
+	}
+	return (&ft_putstr_fd);
+}
+
+/*
 ** parse, puis affiche une conversion. utilise les deux fonctions ci-dessus ^
 ** renvoie le nombre de caracteres lus sur format (t.conv)
 ** ainsi que le nombre de caracteres ecrits. (t.print)
 */
 
-t_size			ft_convert_then_print(const char *s, uintmax_t data, int fd)
+t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 {
 	t_size		t;
-	size_t		i;
 
-	i = 0;
 	t.print = 0;
-	t.conv = 0;
+	t.conv = 2;
 
+	ft_type(s)(data, fd);
 	return (t);
 }
 
 /*
-** si '%' est rencontre, appelle ft_convert_then_print, sinon ecrit le carac.
+** si '%' est rencontre, appelle ft_convert_print, sinon ecrit le carac.
 */
 
 int				ft_vdprintf(int fd, const char *format, va_list ap)
@@ -68,7 +94,7 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 				ft_putchar_fd('%', fd);
 			else
 			{
-				tmp = ft_convert_then_print(format + i, va_arg(ap, uintmax_t), fd);
+				tmp = ft_convert_print(format + i, va_arg(ap, uintmax_t), fd);
 				i += tmp.conv;
 				ret += tmp.print;
 			}
