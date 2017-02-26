@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/02/25 23:33:47 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/02/26 15:33:09 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,27 @@
 */
 
 /*
-** s : ft_putstr
-** S : ft_putwstr
-** p : pointer
-** d : ft_putnbr
-** D : long d
-** i : ft_putnbr
-** o : unsigned decimal to octal
-** O : long o
-** u : unsigned decimal to unsigned decimal
-** U : long U
-** x : unsigned decimal to hexa, using abcdef
-** X : same, using ABCDEF
-** c : decimal to char
-** C : long c
+** s : ft_putstr								| OK |
+** S : ft_putwstr								| OK |
+** p : ft_putadr_fd								| OK |
+** d : ft_putnbr								| OK |
+** D : long										| .. |
+** i : ft_putnbr								| OK |
+** o : unsigned decimal to octal				| .. |
+** O : long										| .. |
+** u : unsigned decimal to unsigned decimal		| .. |
+** U : long U									| .. |
+** x : unsigned decimal to hexa, using abcdef	| .. |
+** X : same, using ABCDEF						| .. |
+** c : decimal to char							| OK |
+** C : long c									| OK |
 */
 
 void		(*ft_type(const char *s))()
 {
 	while (*s)
 	{
-		// si s renvoyer putstr, si S renvoer putwstr, etc
+		// si s renvoyer putstr, si S renvoyer putwstr, etc
 		++s;
 	}
 	return (&ft_putstr_fd);
