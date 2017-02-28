@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/02/26 15:33:09 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/02/28 05:00:42 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 ** S : ft_putwstr								| OK |
 ** p : ft_putadr_fd								| OK |
 ** d : ft_putnbr								| OK |
-** D : long										| .. |
+** D : ft_putlnbr								|~OK |
 ** i : ft_putnbr								| OK |
 ** o : unsigned decimal to octal				| .. |
 ** O : long										| .. |
@@ -47,7 +47,20 @@
 ** C : long c									| OK |
 */
 
-void		(*ft_type(const char *s))()
+const char		*ft_gettype(const char *s)
+{
+	size_t		n;
+
+	n = 0;
+	while (s[n] && s[n] != 's' && s[n] != 'S' && s[n] != 'p' && s[n] != 'd' &&
+				s[n] != 'D' && s[n] != 'i' && s[n] != 'o' && s[n] != 'O' &&
+				s[n] != 'u' && s[n] != 'U' && s[n] != 'x' && s[n] != 'X' &&
+				s[n] != 'c' && s[n] != 'C')
+		++n;
+	return (s + n);
+}
+
+void			(*ft_type(const char *s))()
 {
 	while (*s)
 	{
@@ -66,9 +79,12 @@ void		(*ft_type(const char *s))()
 t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 {
 	t_size		t;
+	const char	*type;
 
 	t.print = 0;
-	t.conv = 2;
+	t.conv = 2; // laisser a 0 et 2 pour le retour d'erreur
+	if (*(type = ft_gettype(s)) == 0)
+		return (t);
 
 	ft_type(s)(data, fd);
 	return (t);
