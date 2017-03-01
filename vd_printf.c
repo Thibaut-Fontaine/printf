@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/02/28 21:07:06 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/01 05:50:20 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@
 ** C : long c									| OK |
 */
 
+/*
+** flags :
+** '#' -> 0 pour o et 0x / 0X pour x et X
+** '0' -> afficher des zeros plutot que des espaces
+** '-' -> affiche tout colle a gauche plutot qu'a droite et annule le 0
+** '+' -> affiche un + si la conversion signee est positive, annule l'espace
+** ' ' -> affiche un espace si la conversion est signee
+*/
+
 const char		*ft_gettype(const char *s)
 {
 	size_t		n;
@@ -60,6 +69,10 @@ const char		*ft_gettype(const char *s)
 	return (s + n);
 }
 
+/*
+** renvoie le pt sur fonction correspondant au type et au modif. de longueur
+*/
+
 void			(*ft_type(const char *s))()
 {
 	while (*s)
@@ -71,7 +84,42 @@ void			(*ft_type(const char *s))()
 }
 
 /*
-** parse, puis affiche une conversion. utilise les deux fonctions ci-dessus ^
+** affiche les caracteres specifies par les flags en fonction du type demande
+** renvoie 1 si tout doit etre justifie a gauche, 2 si flag '0', ret 0 sinon
+*/
+
+int				ft_flag(const char *s, int fd)
+{
+	int			ret;
+	char		t;
+
+	ret = 0;
+	t = *ft_gettype(s);
+	while (*s == '#' || *s == '0' || *s == '-' || *s == '+' || *s == ' ')
+	{
+		if (*s == '#')
+		{
+			if (t == 'o' || t == 'x' || t == 'X')
+			{
+				ft_putchar_fd('0', fd);
+				if (t != 'o')
+					ft_putchar_fd(t, fd);
+			}
+		}
+		else if (*s == '0' && ret != 1)
+			ret = 2;
+		else if (*s == '-')
+			ret = 1;
+		else if (*s == ' ' && ) // SI CONVERSION SIGNEE, ECRIRE ' ' sauf si '+'
+			
+		else if (*s == '+' && ) // SI CONVERSION SIGNEE, ECRIRE '+' ou '-'.
+		++s;
+	}
+	return (ret);
+}
+
+/*
+** parse, puis affiche une conversion. utilise les fonctions ci-dessus ^
 ** renvoie le nombre de caracteres lus sur format (t.conv)
 ** ainsi que le nombre de caracteres ecrits. (t.print)
 */
@@ -85,7 +133,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	t.conv = 2; // laisser a 0 et 2 pour le retour d'erreur
 	if (*(type = ft_gettype(s)) == 0)
 		return (t);
-
+	
 	ft_type(s)(data, fd);
 	return (t);
 }
