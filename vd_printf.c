@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/01 05:50:20 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/01 11:21:20 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** flags #0-+ et espace
 ** precision (.)
 ** taille min de champ
-** flags hh h l ll j z
+** modifs hh h l ll j z
 ** /
 ** dans l'ordre :
 ** -> caractere %
@@ -34,8 +34,8 @@
 ** s : ft_putstr								| OK |
 ** S : ft_putwstr								| OK |
 ** p : ft_putadr_fd								| OK |
-** d : ft_putnbr								| OK |
-** D : ft_putlnbr								|~OK |
+** d : ft_putnbr								|~OK | > + and - flag problem
+** D : ft_putlnbr								|~OK | > not sure
 ** i : ft_putnbr								| OK |
 ** o : unsigned decimal to octal				| .. |
 ** O : long										| .. |
@@ -56,6 +56,17 @@
 ** ' ' -> affiche un espace si la conversion est signee
 */
 
+/*
+** modif de longueur :
+** hh : 1 octet -> char / u char
+** h : 2 octets -> short int / u short int
+** l : 8 octets -> long int / long u int (i / d)
+** ou wint_t (c) ou pt sur wchar_t (s)
+** ll : 8 octets -> ll int / ll u int
+** j : 8 octets -> intmax_t / uintmax_t
+** z : 4 octets -> size_t / size_t
+*/
+
 const char		*ft_gettype(const char *s)
 {
 	size_t		n;
@@ -73,13 +84,11 @@ const char		*ft_gettype(const char *s)
 ** renvoie le pt sur fonction correspondant au type et au modif. de longueur
 */
 
-void			(*ft_type(const char *s))()
+void			(*ft_type(char f))()
 {
-	while (*s)
-	{
-		// si s renvoyer putstr, si S renvoyer putwstr, etc
-		++s;
-	}
+	// si s renvoyer putstr, si S renvoyer putwstr, etc
+	if (f == 'd')
+		return (&ft_putnbr_fd);
 	return (&ft_putstr_fd);
 }
 
@@ -88,13 +97,16 @@ void			(*ft_type(const char *s))()
 ** renvoie 1 si tout doit etre justifie a gauche, 2 si flag '0', ret 0 sinon
 */
 
-int				ft_flag(const char *s, int fd)
+int				ft_flag(const char *s, uintmax_t data, int fd)
 {
 	int			ret;
 	char		t;
+	t_bool		h;
 
 	ret = 0;
+	h = FALSE;
 	t = *ft_gettype(s);
+	++s;
 	while (*s == '#' || *s == '0' || *s == '-' || *s == '+' || *s == ' ')
 	{
 		if (*s == '#')
@@ -110,9 +122,10 @@ int				ft_flag(const char *s, int fd)
 			ret = 2;
 		else if (*s == '-')
 			ret = 1;
-		else if (*s == ' ' && ) // SI CONVERSION SIGNEE, ECRIRE ' ' sauf si '+'
-			
-		else if (*s == '+' && ) // SI CONVERSION SIGNEE, ECRIRE '+' ou '-'.
+		else if (*s == ' ' && h != TRUE && ft_issigned(t))
+			ft_putchar_fd(' ', fd);
+		else if (*s == '+' && ft_issigned(t))
+			ft_putchar_fd(ft_whichsign(data) ? 0 : '+', fd * (h = TRUE));
 		++s;
 	}
 	return (ret);
@@ -133,8 +146,8 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	t.conv = 2; // laisser a 0 et 2 pour le retour d'erreur
 	if (*(type = ft_gettype(s)) == 0)
 		return (t);
-	
-	ft_type(s)(data, fd);
+	ft_flag(s, data, fd);
+	ft_type(*ft_gettype(s))(data, fd);
 	return (t);
 }
 
@@ -155,7 +168,10 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 		if (format[i] == '%')
 		{
 			if (format[i + 1] == '%')
+			{
 				ft_putchar_fd('%', fd);
+				i += 2;
+			}
 			else
 			{
 				tmp = ft_convert_print(format + i, va_arg(ap, uintmax_t), fd);
@@ -164,10 +180,7 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 			}
 		}
 		else
-		{
-			ft_putchar_fd(format[i], fd);
-			++i;
-		}
+			ft_putchar_fd(format[i++], fd);
 	}
 	return (ret);
 }
