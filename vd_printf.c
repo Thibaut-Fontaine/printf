@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/01 11:21:20 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/07 21:34:15 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,31 +67,6 @@
 ** z : 4 octets -> size_t / size_t
 */
 
-const char		*ft_gettype(const char *s)
-{
-	size_t		n;
-
-	n = 0;
-	while (s[n] && s[n] != 's' && s[n] != 'S' && s[n] != 'p' && s[n] != 'd' &&
-				s[n] != 'D' && s[n] != 'i' && s[n] != 'o' && s[n] != 'O' &&
-				s[n] != 'u' && s[n] != 'U' && s[n] != 'x' && s[n] != 'X' &&
-				s[n] != 'c' && s[n] != 'C')
-		++n;
-	return (s + n);
-}
-
-/*
-** renvoie le pt sur fonction correspondant au type et au modif. de longueur
-*/
-
-void			(*ft_type(char f))()
-{
-	// si s renvoyer putstr, si S renvoyer putwstr, etc
-	if (f == 'd')
-		return (&ft_putnbr_fd);
-	return (&ft_putstr_fd);
-}
-
 /*
 ** affiche les caracteres specifies par les flags en fonction du type demande
 ** renvoie 1 si tout doit etre justifie a gauche, 2 si flag '0', ret 0 sinon
@@ -147,7 +122,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	if (*(type = ft_gettype(s)) == 0)
 		return (t);
 	ft_flag(s, data, fd);
-	ft_type(*ft_gettype(s))(data, fd);
+	ft_type(ft_gettype(s))();
 	return (t);
 }
 
