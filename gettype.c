@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/07 21:31:49 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/07 22:22:43 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,20 @@ const char				*ft_gettype(const char *s)
 	return (s + n);
 }
 
+void					(*ft_typeint(const char *f))()
+{
+	if (*f == 'D' || ((*f == 'd' || *f == 'i') && *(f - 1) == 'l'))
+		return (&ft_putnbr_fd); // changer pour le long int
+	if ((*f == 'd' || *f == 'i') && *(f - 1) == 'l')
+		return ();
+}
+
 /*
 ** renvoie le pt sur fonction correspondant au type et au modif. de longueur
 */
 
 void					(*ft_type(const char *f))()
 {
-	// si s renvoyer putstr, si S renvoyer putwstr, etc
 	if (*f == 'S' || (*f == 's' && *(f - 1) == 'l'))
 		return (&ft_putwstr_fd);
 	if (*f == 's')
@@ -40,10 +47,8 @@ void					(*ft_type(const char *f))()
 		return (&ft_putwchar_fd);
 	if (*f == 'c')
 		return ((void*)&ft_putchar_fd);
-	if (*f == 'D' || ((*f == 'd' || *f == 'i') && *(f - 1) == 'l'))
-		return (&ft_putnbr_fd); // changer pour le long int
-	if (*f == 'd' || *f == 'i')
-		return (&ft_putnbr_fd);
+	if (*f == 'd' || *f == 'i' || *f == 'D')
+		return (ft_typeint(f));
 	if (*f == 'p')
 		return (&ft_putadr_fd);
 	if (*f == 'O' || (*f == 'o' && *(f - 1) == 'l'))
