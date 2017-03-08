@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/07 22:22:43 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/08 03:02:40 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,17 @@ void					(*ft_typeint(const char *f))()
 {
 	if (*f == 'D' || ((*f == 'd' || *f == 'i') && *(f - 1) == 'l'))
 		return (&ft_putnbr_fd); // changer pour le long int
-	if ((*f == 'd' || *f == 'i') && *(f - 1) == 'l')
-		return ();
+	if ((*f == 'd' || *f == 'i') && *(f - 1) == 'h' && *(f - 2) == 'h')
+		return (&ft_putnbr_fd); // unsigned char / char -> en nbr
+	if ((*f == 'd' || *f == 'i') && *(f - 1) == 'h')
+		return (&ft_putnbr_fd); // short int
+	if ((*f == 'd' || *f == 'i') && *(f - 1) == 'z')
+		return (&ft_putnbr_fd); // size_t or ssize_t
+	if ((*f == 'd' || *f == 'i') && *(f - 1) == 'j')
+		return (&ft_putnbr_fd); // intmax_t or uintmax_t
+	if (*f == 'd' || *f == 'i')
+		return (&ft_putnbr_fd); // int
+	return (NULL);
 }
 
 /*
