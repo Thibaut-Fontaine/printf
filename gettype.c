@@ -6,11 +6,11 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/08 03:02:40 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/08 23:25:55 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <./printf.h>
+#include "./printf.h"
 
 const char				*ft_gettype(const char *s)
 {
