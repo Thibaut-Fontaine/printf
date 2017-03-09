@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/09 06:36:39 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/09 08:38:59 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	if (*(type = ft_gettype(s)) == 0)
 		return (t);
 	ft_flag(s, data, fd);
-	t.print = ft_type(ft_gettype(s))(data, fd);
-	t.conv = ;
+	t.print = ft_type(type)(data, fd);
+	t.conv = type - s + 1;
 	return (t);
 }
 

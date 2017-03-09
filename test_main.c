@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/09 00:24:08 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/09 08:52:49 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 #include "./libft/includes/libft.h"
 #include <sys/types.h>
 #include <limits.h>
+#include "./libft/includes/libft.h"
 
 int			main()
 {
-	char	i = '7';
+	wchar_t	i = L'ß';
+	int		n = 741852;
+	int		k = 56789;
 
-	ft_printf("%hhd", i);
+	ft_printf("%S", &i);
 	return (0);
 }
