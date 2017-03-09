@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/09 11:06:27 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/09 12:11:59 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ const char				*ft_gettype(const char *s)
 ** case ..D, ..d or ..i
 */
 
-ssize_t					(*ft_typesigned(const char *f))()
+//
+// probleme majeur avec U O et D !
+
+ssize_t					(*ft_typeint(const char *f))()
 {
 	if (*f == 'D')
 			return (&ft_putint64_fd);
@@ -67,7 +70,7 @@ ssize_t					(*ft_typesigned(const char *f))()
 ** case ..U or ..u
 */
 
-ssize_t					(*ft_typeunsigned(const char *f))()
+ssize_t					(*ft_typeuint(const char *f))()
 {
 	if (*f == 'U')
 			return (&ft_putuint64_fd);
@@ -87,12 +90,12 @@ ssize_t					(*ft_typeunsigned(const char *f))()
 	}
 }
 
-ssize_t					(*ft_typeint(const char *f))()
+ssize_t					(*ft_typeinteger(const char *f))()
 {
 	if (*f == 'U' || *f == 'u')
-		return (ft_typeunsigned(f));
+		return (ft_typeuint(f));
 	else
-		return (ft_typesigned(f));
+		return (ft_typeint(f));
 }
 
 /*
@@ -110,7 +113,7 @@ ssize_t					(*ft_type(const char *f))()
 	if (*f == 'c')
 		return ((void*)&ft_putchar_fd);
 	if (*f == 'd' || *f == 'i' || *f == 'D' || *f == 'U' || *f == 'u')
-		return (ft_typeint(f));
+		return (ft_typeinteger(f));
 	if (*f == 'p')
 		return (&ft_putadr_fd);
 	if (*f == 'O' || (*f == 'o' && *(f - 1) == 'l'))
