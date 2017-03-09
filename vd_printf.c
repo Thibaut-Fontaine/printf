@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/08 23:08:47 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/09 06:36:39 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,40 +31,15 @@
 */
 
 /*
-** s : ft_putstr								| OK |
-** S : ft_putwstr								| OK |
-** p : ft_putadr_fd								| OK |
-** d : ft_putnbr								|~OK | > + and - flag problem
-** D : ft_putlnbr								|~OK | > not sure
-** i : ft_putnbr								| OK |
-** o : unsigned decimal to octal				| .. |
-** O : long										| .. |
-** u : unsigned decimal to unsigned decimal		| .. |
-** U : long U									| .. |
-** x : unsigned decimal to hexa, using abcdef	| .. |
-** X : same, using ABCDEF						| .. |
-** c : decimal to char							| OK |
-** C : long c									| OK |
-*/
-
-/*
 ** flags :
 ** '#' -> 0 pour o et 0x / 0X pour x et X
 ** '0' -> afficher des zeros plutot que des espaces
 ** '-' -> affiche tout colle a gauche plutot qu'a droite et annule le 0
 ** '+' -> affiche un + si la conversion signee est positive, annule l'espace
 ** ' ' -> affiche un espace si la conversion est signee
-*/
-
-/*
-** modif de longueur :
-** hh : 1 octet -> char / u char
-** h : 2 octets -> short int / u short int
-** l : 8 octets -> long int / long u int (i / d)
-** ou wint_t (c) ou pt sur wchar_t (s)
-** ll : 8 octets -> ll int / ll u int
-** j : 8 octets -> intmax_t / uintmax_t
-** z : 4 octets -> size_t / size_t
+** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+**  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 */
 
 /*
@@ -118,11 +93,12 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	const char	*type;
 
 	t.print = 0;
-	t.conv = 2; // laisser a 0 et 2 pour le retour d'erreur
+	t.conv = 2; // laisser initialise a 0 et 2 pour le retour d'erreur
 	if (*(type = ft_gettype(s)) == 0)
 		return (t);
 	ft_flag(s, data, fd);
-	ft_type(ft_gettype(s))();
+	t.print = ft_type(ft_gettype(s))(data, fd);
+	t.conv = ;
 	return (t);
 }
 

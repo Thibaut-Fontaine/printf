@@ -6,11 +6,17 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/08 23:25:55 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/09 06:38:28 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./printf.h"
+
+/*
+** toutes les fonctions d'ecriture presentes retournent le nombre de caracteres
+** ecrits, -1 si erreur (si write retourne -1) ou si le format est non specifie
+** le type de retour est donc ssize_t (4 bytes signe)
+*/
 
 const char				*ft_gettype(const char *s)
 {
@@ -25,7 +31,11 @@ const char				*ft_gettype(const char *s)
 	return (s + n);
 }
 
-void					(*ft_typeint(const char *f))()
+/*
+** renvoie un pointeur sur fonction de type ssize_t()
+*/
+
+ssize_t					(*ft_typeint(const char *f))()
 {
 	if (*f == 'D' || ((*f == 'd' || *f == 'i') && *(f - 1) == 'l'))
 		return (&ft_putnbr_fd); // changer pour le long int
@@ -46,7 +56,7 @@ void					(*ft_typeint(const char *f))()
 ** renvoie le pt sur fonction correspondant au type et au modif. de longueur
 */
 
-void					(*ft_type(const char *f))()
+ssize_t					(*ft_type(const char *f))()
 {
 	if (*f == 'S' || (*f == 's' && *(f - 1) == 'l'))
 		return (&ft_putwstr_fd);
