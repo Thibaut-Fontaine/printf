@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 03:30:16 by tfontain          #+#    #+#             */
-/*   Updated: 2017/02/20 16:37:25 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/09 10:53:33 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** this file define all the functions who can be used directly by the user,
 ** except ft_vdprintf, who is defined in the file vd_printf.c
+** these int's conversions printf works only for x86-64 systems
 */
 
 /*
