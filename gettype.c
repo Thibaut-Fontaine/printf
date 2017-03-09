@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/09 06:38:28 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/09 10:02:27 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 ** toutes les fonctions d'ecriture presentes retournent le nombre de caracteres
 ** ecrits, -1 si erreur (si write retourne -1) ou si le format est non specifie
 ** le type de retour est donc ssize_t (4 bytes signe)
+** -
+** see also the folder ./put_funcs/
 */
 
 const char				*ft_gettype(const char *s)
@@ -35,7 +37,7 @@ const char				*ft_gettype(const char *s)
 ** renvoie un pointeur sur fonction de type ssize_t()
 */
 
-ssize_t					(*ft_typeint(const char *f))()
+ssize_t					(*ft_typeint(const char *f))() // u || (d || i) > size
 {
 	if (*f == 'D' || ((*f == 'd' || *f == 'i') && *(f - 1) == 'l'))
 		return (&ft_putnbr_fd); // changer pour le long int
