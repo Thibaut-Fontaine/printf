@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/09 06:38:49 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/10 09:03:33 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,11 @@ int					ft_issigned(char format_c);
 int					ft_whichsign(intmax_t i);
 const char			*ft_gettype(const char *s);
 ssize_t				(*ft_type(const char *f))();
+
+ssize_t				(*ft_typeint(const char *f))();
+ssize_t				(*ft_typeuint(const char *f))();
+ssize_t				(*ft_typeoct(const char *f))();
+ssize_t				(*ft_typehex(const char *f))();
+ssize_t				(*ft_typeheX(const char *f))();
 
 #endif

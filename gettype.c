@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/09 12:11:59 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/10 09:10:53 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,61 +39,16 @@ const char				*ft_gettype(const char *s)
 **				ssize_t ft_putuint32_fd(uint32_t i, int fd);
 */
 
-/*
-** case ..D, ..d or ..i
-*/
-
-//
-// probleme majeur avec U O et D !
-
-ssize_t					(*ft_typeint(const char *f))()
-{
-	if (*f == 'D')
-			return (&ft_putint64_fd);
-	if (*f == 'd' || *f == 'i')
-	{
-		if (*(f - 1) == 'h')
-		{
-			if (*(f - 2) == 'h')
-				return (&ft_putint8_fd);
-			else
-				return (&ft_putint16_fd);
-		}
-		if (*(f - 1) == '%')
-			return (&ft_putint32_fd);
-		if (*(f - 1) == 'l' || *(f - 1) == 'j' || *(f - 1) == 'z')
-			return (&ft_putint64_fd);
-	}
-}
-
-/*
-** case ..U or ..u
-*/
-
-ssize_t					(*ft_typeuint(const char *f))()
-{
-	if (*f == 'U')
-			return (&ft_putuint64_fd);
-	if (*f == 'u')
-	{
-		if (*(f - 1) == 'h')
-		{
-			if (*(f - 2) == 'h')
-				return (&ft_putuint8_fd);
-			else
-				return (&ft_putuint16_fd);
-		}
-		if (*(f - 1) == '%')
-			return (&ft_putuint32_fd);
-		if (*(f - 1) == 'l' || *(f - 1) == 'j' || *(f - 1) == 'z')
-			return (&ft_putuint64_fd);
-	}
-}
-
-ssize_t					(*ft_typeinteger(const char *f))()
+ssize_t		(*ft_typeinteger(const char *f))()
 {
 	if (*f == 'U' || *f == 'u')
 		return (ft_typeuint(f));
+	if (*f == 'o' || *f == 'O')
+		return (ft_typeoct(f));
+	if (*f == 'x')
+		return (ft_typehex(f));
+	if (*f == 'X')
+		return (ft_typeheX(f));
 	else
 		return (ft_typeint(f));
 }
@@ -112,17 +67,10 @@ ssize_t					(*ft_type(const char *f))()
 		return (&ft_putwchar_fd);
 	if (*f == 'c')
 		return ((void*)&ft_putchar_fd);
-	if (*f == 'd' || *f == 'i' || *f == 'D' || *f == 'U' || *f == 'u')
+	if (*f == 'd' || *f == 'i' || *f == 'D' || *f == 'U' || *f == 'u'
+			|| *f == 'o' || *f == 'O' || *f == 'x' || *f == 'X')
 		return (ft_typeinteger(f));
 	if (*f == 'p')
 		return (&ft_putadr_fd);
-	if (*f == 'O' || (*f == 'o' && *(f - 1) == 'l'))
-		return (NULL); // long octal
-	if (*f == 'o')
-		return (NULL); // to octal
-	if (*f == 'X' || (*f == 'x' && *(f - 1) == 'l'))
-		return (NULL); // hexa in bigs chars
-	if (*f == 'x')
-		return (NULL); // hexa in big chars
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/09 12:08:54 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/10 08:43:08 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 #include <limits.h>
 #include "./libft/includes/libft.h"
 
-int			main()
+int				main()
 {
-	long int	i = 1234314;
-	int		n = 741852;
-	int		k = 56789;
+	unsigned char	i = 123;
+	int			n = 741852;
+	int			k = 56789;
 
-	printf("%D\n", i);
+	printf("%hhx", i);
 	return (0);
 }
