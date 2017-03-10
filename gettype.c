@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/10 09:10:53 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/10 14:33:34 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ const char				*ft_gettype(const char *s)
 
 ssize_t		(*ft_typeinteger(const char *f))()
 {
-	if (*f == 'U' || *f == 'u')
+	/*if (*f == 'U' || *f == 'u')
 		return (ft_typeuint(f));
 	if (*f == 'o' || *f == 'O')
 		return (ft_typeoct(f));
@@ -50,7 +50,8 @@ ssize_t		(*ft_typeinteger(const char *f))()
 	if (*f == 'X')
 		return (ft_typeheX(f));
 	else
-		return (ft_typeint(f));
+		return (ft_typeint(f));*/
+	return (&ft_putnbr_fdr);
 }
 
 /*
@@ -60,17 +61,17 @@ ssize_t		(*ft_typeinteger(const char *f))()
 ssize_t					(*ft_type(const char *f))()
 {
 	if (*f == 'S' || (*f == 's' && *(f - 1) == 'l'))
-		return (&ft_putwstr_fd);
+		return (&ft_putwstr_fdr);
 	if (*f == 's')
-		return (&ft_putstr_fd);
+		return (&ft_putstr_fdr);
 	if (*f == 'C' || (*f == 'c' && *(f - 1) == 'l'))
-		return (&ft_putwchar_fd);
+		return (&ft_putwchar_fdr);
 	if (*f == 'c')
-		return ((void*)&ft_putchar_fd);
+		return ((void*)&ft_putchar_fdr);
 	if (*f == 'd' || *f == 'i' || *f == 'D' || *f == 'U' || *f == 'u'
 			|| *f == 'o' || *f == 'O' || *f == 'x' || *f == 'X')
 		return (ft_typeinteger(f));
 	if (*f == 'p')
-		return (&ft_putadr_fd);
+		return (&ft_putadr_fdr);
 	return (NULL);
 }

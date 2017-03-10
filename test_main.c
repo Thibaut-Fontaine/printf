@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/10 08:43:08 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/10 13:50:59 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 int				main()
 {
-	unsigned char	i = 123;
-	int			n = 741852;
-	int			k = 56789;
+	unsigned char	i = 'y';
+	unsigned char	n = ';';
+	unsigned char	k = 'o';
 
-	printf("%hhx", i);
+	ft_printf("|||%c -> %c -> %c oh yeah\n", i, n, k);
 	return (0);
 }
