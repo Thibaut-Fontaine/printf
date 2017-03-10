@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/10 11:31:41 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/10 13:06:32 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ t_size			ft_flag(const char *s, uintmax_t data, int fd)
 		{
 			if (t == 'o' || t == 'x' || t == 'X')
 			{
-				ret.print += ft_putchar_fd('0', fd);
-				t != 'o' ? ret.print += ft_putchar_fd(t, fd) : 0;
+				ret.print += ft_putchar_fdr('0', fd);
+				t != 'o' ? ret.print += ft_putchar_fdr(t, fd) : 0;
 			}
 		}
 		else if (*s == '0' && ret.conv != 1)
@@ -75,9 +75,9 @@ t_size			ft_flag(const char *s, uintmax_t data, int fd)
 		else if (*s == '-')
 			ret.conv = 1;
 		else if (*s == ' ' && h != TRUE && ft_issigned(t))
-			ret.print += ft_putchar_fd(' ', fd);
+			ret.print += ft_putchar_fdr(' ', fd);
 		else if (*s == '+' && ft_issigned(t))
-			ret.print += ft_putchar_fd(ft_whichsign(data) ? 0 : '+', fd * (h = TRUE));
+			ret.print += ft_putchar_fdr(ft_whichsign(data) ? 0 : '+', fd * (h = TRUE));
 		++s;
 	}
 	return (ret);
