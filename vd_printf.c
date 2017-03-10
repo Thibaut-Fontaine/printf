@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/09 11:51:24 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/10 11:31:41 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,19 @@
 
 /*
 ** affiche les caracteres specifies par les flags en fonction du type demande
-** renvoie 1 si tout doit etre justifie a gauche, 2 si flag '0', ret 0 sinon
+** valeur de renvoi :
+** dans t.conv : 1 si tout doit etre justifie a gauche, 2 si flag '0', ret 0 sinon
+** dans t.print : le nombre de caracteres ecrits.
 */
 
-int				ft_flag(const char *s, uintmax_t data, int fd)
+t_size			ft_flag(const char *s, uintmax_t data, int fd)
 {
-	int			ret;
+	t_size		ret;
 	char		t;
 	t_bool		h;
 
-	ret = 0;
+	ret.conv = 0;
+	ret.print = 0;
 	h = FALSE;
 	t = *ft_gettype(s);
 	++s;
@@ -63,19 +66,18 @@ int				ft_flag(const char *s, uintmax_t data, int fd)
 		{
 			if (t == 'o' || t == 'x' || t == 'X')
 			{
-				ft_putchar_fd('0', fd);
-				if (t != 'o')
-					ft_putchar_fd(t, fd);
+				ret.print += ft_putchar_fd('0', fd);
+				t != 'o' ? ret.print += ft_putchar_fd(t, fd) : 0;
 			}
 		}
-		else if (*s == '0' && ret != 1)
-			ret = 2;
+		else if (*s == '0' && ret.conv != 1)
+			ret.conv = 2;
 		else if (*s == '-')
-			ret = 1;
+			ret.conv = 1;
 		else if (*s == ' ' && h != TRUE && ft_issigned(t))
-			ft_putchar_fd(' ', fd);
+			ret.print += ft_putchar_fd(' ', fd);
 		else if (*s == '+' && ft_issigned(t))
-			ft_putchar_fd(ft_whichsign(data) ? 0 : '+', fd * (h = TRUE));
+			ret.print += ft_putchar_fd(ft_whichsign(data) ? 0 : '+', fd * (h = TRUE));
 		++s;
 	}
 	return (ret);
@@ -96,8 +98,10 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	t.conv = 2; // laisser initialise a 0 et 2 pour le retour d'erreur
 	if (*(type = ft_gettype(s)) == 0)
 		return (t);
-	ft_flag(s, data, fd);
-	t.print = ft_type(type)(data, fd);
+	t = ft_flag(s, data, fd);
+	t.print += ft_type(type)(data, fd);
+	
+	//
 	t.conv = type - s + 1;
 	return (t);
 }
