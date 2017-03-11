@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/10 15:06:41 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 11:42:52 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@
 #include <limits.h>
 #include "./libft/includes/libft.h"
 
+#include <locale.h> //
+
 int				main()
 {
-	unsigned char	i = 'y';
-	int				n = 666;
-	char	*s = "ceci est une chaine ascii";
-	wchar_t	*ls = L"©˙∆ ca c'est une string pour unicode œ∑´®†¥πø√∫ƒ© !";
-	wchar_t			lc = L'ø';
+	unsigned char	i = 214;
+	size_t			ret;
+	size_t			ret2;
 
-	ft_printf("|||%c -> %c -> %c oh yeah\n", i, n, k);
+	setlocale(LC_ALL, "");
+	ret = printf("salut");
+	ret2 = ft_printf("salut");
+	
+	printf("\n%zu %zu\n", ret, ret2);
 	return (0);
 }

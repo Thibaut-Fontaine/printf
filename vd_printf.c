@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/11 10:39:37 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 11:42:49 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,10 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 		if (format[i] == '%')
 		{
 			if (format[i + 1] == '%')
-				i += ft_putchar_fdr('%', fd);
+			{
+				ret += ft_putchar_fdr('%', fd);
+				i += 2;
+			}
 			else
 			{
 				tmp = ft_convert_print(format + i, va_arg(ap, uintmax_t), fd);
@@ -133,7 +136,7 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 			}
 		}
 		else
-			ft_putchar_fd(format[i++], fd);
+			ret += ft_putchar_fdr(format[i++], fd);
 	}
 	return (ret);
 }

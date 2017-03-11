@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 08:45:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/10 09:12:32 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 11:33:46 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ ssize_t		(*ft_typehex(const char *f))()
 ** case ..X
 */
 
-ssize_t		(*ft_typeheX(const char *f))()
+ssize_t		(*ft_typehexx(const char *f))()
 {
 	if (*f == 'X')
 	{
