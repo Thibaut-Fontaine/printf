@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/10 09:03:33 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 10:37:02 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PRINTF_H
 # include "./libft/includes/libft.h"
 # include <stdarg.h>
-
 
 typedef struct		s_size
 {

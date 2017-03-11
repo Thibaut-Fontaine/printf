@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/10 14:29:54 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 10:39:37 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 /*
 ** affiche les caracteres specifies par les flags en fonction du type demande
 ** valeur de renvoi :
-** dans t.conv : 1 si tout doit etre justifie a gauche, 2 si flag '0', ret 0 sinon
+** dans t.conv : 1 si flag '-', 2 si flag '0', ret 0 sinon
 ** dans t.print : le nombre de caracteres ecrits.
 */
 
@@ -77,7 +77,8 @@ t_size			ft_flag(const char *s, uintmax_t data, int fd)
 		else if (*s == ' ' && h != TRUE && ft_issigned(t))
 			ret.print += ft_putchar_fdr(' ', fd);
 		else if (*s == '+' && ft_issigned(t))
-			ret.print += ft_putchar_fdr(ft_whichsign(data) ? 0 : '+', fd * (h = TRUE));
+			ret.print += ft_putchar_fdr(ft_whichsign(data) ? 0
+					: '+', fd * (h = TRUE));
 		++s;
 	}
 	return (ret);
@@ -95,7 +96,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	const char	*type;
 
 	t.print = 0;
-	t.conv = 2; // laisser initialise a 0 et 2 pour le retour d'erreur
+	t.conv = 2;
 	if (*(type = ft_gettype(s)) == 0)
 		return (t);
 	t = ft_flag(s, data, fd);

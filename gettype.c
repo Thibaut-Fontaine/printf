@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/10 14:33:34 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 10:33:21 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ const char				*ft_gettype(const char *s)
 **				ssize_t ft_putuint32_fd(uint32_t i, int fd);
 */
 
-ssize_t		(*ft_typeinteger(const char *f))()
+ssize_t					(*ft_typeinteger(const char *f))()
 {
 	/*if (*f == 'U' || *f == 'u')
 		return (ft_typeuint(f));
