@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/11 17:14:28 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:20:56 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,17 @@ ssize_t					(*ft_type(const char *f))()
 	return (NULL);
 }
 
+/*
+** faire un cast specifique a chaque longueur
+*/
+
 ssize_t					ft_printdata(const char *t, uintmax_t data, int fd)
 {
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')
-		return (ft_type(t)((unsigned int)data, fd));
+		return (ft_type(t)(data, fd));
 	else if (*t == 'd' || *t == 'i' || *t == 'D')
-		return (ft_type(t)((int)data, fd));
+		return (ft_type(t)(data, fd));
 	else
 		return (ft_type(t)(data, fd));
 }

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 08:45:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/11 17:19:56 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 19:00:16 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,60 @@
 
 ssize_t				ft_putint_fdr(intmax_t i, int fd)
 {
-	return (ft_putnbr_fdr(i, fd));
+	ssize_t			r;
+
+	r = 0;
+	if (i < 0)
+	{
+		r += ft_putchar_fdr('-', fd);
+		i = -i;
+	}
+	if (i >= 10)
+		r += ft_putnbr_fdr(i / 10, fd) + ft_putnbr_fdr(i % 10, fd);
+	else
+		r += ft_putchar_fdr(i + '0', fd);
+	return (r);
 }
 ssize_t				ft_putuint_fdr(uintmax_t i, int fd)
 {
-	return (ft_putnbr_fdr(i, fd));
+	ssize_t			r;
+
+	r = 0;
+	if (i >= 10)
+		r += ft_putnbr_fdr(i / 10, fd) + ft_putnbr_fdr(i % 10, fd);
+	else
+		r += ft_putchar_fdr(i + '0', fd);
+	return (r);
 }
 ssize_t				ft_putoct_fdr(uintmax_t i, int fd)
 {
-	return (ft_putnbr_fdr(i, fd));
+	uintmax_t		o = 0;
+	uintmax_t		y = 1;
+
+	while (i != 0)
+	{
+		o += (i % 8) * y;
+		i /= 8;
+		y *= 10;
+	}
+	return (ft_putuint_fdr(o, fd));
 }
+
 ssize_t				ft_puthex_fdr(uintmax_t i, int fd)
 {
-	return (ft_putnbr_fdr(i, fd));
+	ssize_t			r;
+
+	r = 0;
+	while (i != 0)
+	{
+		r += ft_putchar_fdr(i % 16 < 10 ? i % 16 + 48 : i % 16 + 55, fd);
+		i = i / 16;
+	}
+	return (r);
 }
 ssize_t				ft_puthexx_fdr(uintmax_t i, int fd)
 {
-	return (ft_putnbr_fdr(i, fd));
+	return (0);
 }
 
 /*
