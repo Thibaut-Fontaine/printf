@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/11 10:33:21 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 17:14:28 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,16 @@ const char				*ft_gettype(const char *s)
 
 ssize_t					(*ft_typeinteger(const char *f))()
 {
-	/*if (*f == 'U' || *f == 'u')
-		return (ft_typeuint(f));
+	if (*f == 'U' || *f == 'u')
+		return (&ft_putuint_fdr);
 	if (*f == 'o' || *f == 'O')
-		return (ft_typeoct(f));
+		return (&ft_putoct_fdr);
 	if (*f == 'x')
-		return (ft_typehex(f));
+		return (&ft_puthex_fdr);
 	if (*f == 'X')
-		return (ft_typeheX(f));
+		return (&ft_puthexx_fdr);
 	else
-		return (ft_typeint(f));*/
-	return (&ft_putnbr_fdr);
+		return (&ft_putint_fdr);
 }
 
 /*
@@ -74,4 +73,15 @@ ssize_t					(*ft_type(const char *f))()
 	if (*f == 'p')
 		return (&ft_putadr_fdr);
 	return (NULL);
+}
+
+ssize_t					ft_printdata(const char *t, uintmax_t data, int fd)
+{
+	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
+			|| *t == 'X')
+		return (ft_type(t)((unsigned int)data, fd));
+	else if (*t == 'd' || *t == 'i' || *t == 'D')
+		return (ft_type(t)((int)data, fd));
+	else
+		return (ft_type(t)(data, fd));
 }

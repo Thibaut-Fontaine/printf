@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/11 11:42:52 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 17:21:36 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,11 @@
 
 #include <locale.h> //
 
-int				main()
+int					main()
 {
-	unsigned char	i = 214;
-	size_t			ret;
-	size_t			ret2;
+	char			*s = "aaaaaaaaaabbbbbbbbbbccccccccccdssseeeeeeeeeeeeeffffffffgggggggghhhhhhhhhiiiiiiiiiiijjjjjjjjjjkkkkkkkllllllllllmmmmmmmnnnnnnnnnnoooooooooppppppppppppqqqqqqqqrrrrrrrrrrsssssssssstttttttttttuuuuuuuuvvvvvvvvvvvvvvwwwwwwwwwwwxxxxxxxxxxxxxxxyyyyyyyyyyyyyyzzzzzzzzzzzzzzzzzzzzzzzzzz";
 
-	setlocale(LC_ALL, "");
-	ret = printf("salut");
-	ret2 = ft_printf("salut");
-	
-	printf("\n%zu %zu\n", ret, ret2);
+	wchar_t			*ls = L"œ∑´®†¥¨ˆøπø∆˙©ƒ∂´∑´®†¥˙∆˜∫√ç∂∂∆˜∫ √ç≈∂∂ƒ©√ç∂®©˙∫√ç≈ßß˙∆˚¬øπøˆ¨¥†®®ƒ©˙∆˙©ƒ∂ß∂†¥¨ˆøπøˆ¨¥¨ˆøπøˆ¨¥†®´∑œåß∂≈çƒ©˙∆˚¬˚µ˜∫√ç≈Ωß∂®†©˙∫√ç≈∂ƒ©˙∫√ç∂ƒgcbhewnfjdowaf bawdfn dnfmwaegnfcjemw gfncojwaems gfkwea;,gfcdw,smxnbhxhujikj˙√ƒ©˙∆˜∫©√ƒ˙∆˜∫©√˚µ˜ ∫˙∆˚ø¬";
+	printf("string  : %s\nwstring : %S\npointeur : %p\n%d", s, ls, ls, 999666777);
 	return (0);
 }

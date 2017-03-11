@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 08:45:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/11 11:33:46 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/11 17:19:56 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,28 @@
 **			ssize_t ft_putuint32_fd(uint32_t i, int fd);
 */
 
-/*
-** case ..D, ..d or ..i
-*/
+ssize_t				ft_putint_fdr(intmax_t i, int fd)
+{
+	return (ft_putnbr_fdr(i, fd));
+}
+ssize_t				ft_putuint_fdr(uintmax_t i, int fd)
+{
+	return (ft_putnbr_fdr(i, fd));
+}
+ssize_t				ft_putoct_fdr(uintmax_t i, int fd)
+{
+	return (ft_putnbr_fdr(i, fd));
+}
+ssize_t				ft_puthex_fdr(uintmax_t i, int fd)
+{
+	return (ft_putnbr_fdr(i, fd));
+}
+ssize_t				ft_puthexx_fdr(uintmax_t i, int fd)
+{
+	return (ft_putnbr_fdr(i, fd));
+}
 
+/*
 ssize_t		(*ft_typeint(const char *f))()
 {
 	if (*f == 'D')
@@ -41,10 +59,6 @@ ssize_t		(*ft_typeint(const char *f))()
 			return (&ft_putint64_fd);
 	}
 }
-
-/*
-** case ..U or ..u
-*/
 
 ssize_t		(*ft_typeuint(const char *f))()
 {
@@ -66,10 +80,6 @@ ssize_t		(*ft_typeuint(const char *f))()
 	}
 }
 
-/*
-** case ..O or ..o
-*/
-
 ssize_t		(*ft_typeoct(const char *f))()
 {
 	if (*f == 'O')
@@ -90,10 +100,6 @@ ssize_t		(*ft_typeoct(const char *f))()
 	}
 }
 
-/*
-** case ..x
-*/
-
 ssize_t		(*ft_typehex(const char *f))()
 {
 	if (*f == 'x')
@@ -112,10 +118,6 @@ ssize_t		(*ft_typehex(const char *f))()
 	}
 }
 
-/*
-** case ..X
-*/
-
 ssize_t		(*ft_typehexx(const char *f))()
 {
 	if (*f == 'X')
@@ -132,4 +134,4 @@ ssize_t		(*ft_typehexx(const char *f))()
 		if (*(f - 1) == 'l' || *(f - 1) == 'j' || *(f - 1) == 'z')
 			return (&ft_putheX64_fd);
 	}
-}
+}*/
