@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/12 01:37:22 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/12 02:11:31 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,5 @@ ssize_t				ft_puthexx_fdr(uintmax_t i, int fd);
 
 ssize_t				ft_typeint(const char *t, uintmax_t data, int fd);
 ssize_t				ft_typeuint(const char *t, uintmax_t data, int fd);
-ssize_t				ft_typeoct(const char *t, uintmax_t data, int fd);
-ssize_t				ft_typehex(const char *t, uintmax_t data, int fd);
-ssize_t				ft_typehexx(const char *t, uintmax_t data, int fd);
 
 #endif
