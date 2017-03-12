@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/11 18:50:39 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/12 02:00:32 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 
 int					main()
 {
-	int	i = 852;
-
-	ft_printf("%x", i);
+	printf("%d %lu %X %o %hho %x\n", 987, (unsigned long)789, 456, 654, (unsigned char)123, 321);
+	ft_printf("%d %lu %X %o %hho %x\n", 987, (unsigned long)789, 456, 654, (unsigned char)123, 321);
 	return (0);
 }
