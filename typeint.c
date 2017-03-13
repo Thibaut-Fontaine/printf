@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 08:45:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/12 02:15:35 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/13 01:55:19 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ ssize_t				ft_putint_fdr(intmax_t i, int fd)
 
 ssize_t				ft_putuint_fdr(uintmax_t i, int fd)
 {
-	return (i != 0 ? ft_putoct_fdr(i / 10, fd) +
+	return (i != 0 ? ft_putuint_fdr(i / 10, fd) +
 			ft_putchar_fdr(i % 10 + '0', fd) : 0);
 }
 
