@@ -6,7 +6,7 @@
 #    By: tfontain <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 04:52:55 by tfontain          #+#    #+#              #
-#    Updated: 2017/03/13 02:29:34 by tfontain         ###   ########.fr        #
+#    Updated: 2017/03/13 02:35:32 by tfontain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 		make -C libft/
-		ar rc $(NAME) $(OBJ) ./libft/libft.a
+		cp libft/libft.a ./$(NAME)
+		ar rc $(NAME) $(OBJ)
 		ranlib $(NAME)
 
 %.o : %.c
