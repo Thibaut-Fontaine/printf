@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 08:45:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/13 01:56:48 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/13 11:55:06 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** exemple :
 **			ssize_t ft_putuint32_fd(uint32_t i, int fd);
 */
-
+#include <stdio.h> //
 ssize_t				ft_putint_fdr(intmax_t i, int fd)
 {
 	ssize_t			r;
@@ -29,7 +29,7 @@ ssize_t				ft_putint_fdr(intmax_t i, int fd)
 		i = -i;
 	}
 	if (i >= 10)
-		r += ft_putnbr_fdr(i / 10, fd) + ft_putnbr_fdr(i % 10, fd);
+		r += ft_putint_fdr(i / 10, fd) + ft_putint_fdr(i % 10, fd);
 	else
 		r += ft_putchar_fdr(i + '0', fd);
 	return (r);

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/13 07:29:53 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/13 11:38:50 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ t_size			ft_flag(const char *s, uintmax_t data, int fd)
 	ret.print = 0;
 	h = FALSE;
 	t = *ft_gettype(s);
-	++s;
-	while (*s == '#' || *s == '0' || *s == '-' || *s == '+' || *s == ' ')
+	while (++s)
 	{
 		if (*s == '#')
 		{
@@ -77,9 +76,10 @@ t_size			ft_flag(const char *s, uintmax_t data, int fd)
 		else if (*s == ' ' && h != TRUE && ft_issigned(t))
 			ret.print += ft_putchar_fdr(' ', fd);
 		else if (*s == '+' && ft_issigned(t))
-			ret.print += ft_putchar_fdr(ft_whichsign(data) ? 0
-					: '+', fd * (h = TRUE));
-		++s;
+			ret.print += ft_putchar_fdr(ft_whichsign(s, data) ? '+'
+					: 0, fd * (h = TRUE));
+		else
+			break ;
 	}
 	return (ret);
 }
