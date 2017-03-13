@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 01:25:56 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/12 01:57:57 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/13 08:01:45 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ ssize_t			ft_typeint(const char *t, uintmax_t data, int fd)
 			else
 				return (ft_type(t)((short int)data, fd));
 		}
-		if (*(t - 1) == '%')
-			return (ft_type(t)((int)data, fd));
 		if (*(t - 1) == 'l' || *(t - 1) == 'j' || *(t - 1) == 'z')
 			return (ft_type(t)((long int)data, fd));
+		return (ft_type(t)((int)data, fd));
 	}
 	return (0);
 }
@@ -46,10 +45,9 @@ ssize_t			ft_typeuint(const char *t, uintmax_t data, int fd)
 			else
 				return (ft_type(t)((unsigned short int)data, fd));
 		}
-		if (*(t - 1) == '%')
-			return (ft_type(t)((unsigned int)data, fd));
 		if (*(t - 1) == 'l' || *(t - 1) == 'j' || *(t - 1) == 'z')
 			return (ft_type(t)((unsigned long int)data, fd));
+		return (ft_type(t)((unsigned int)data, fd));
 	}
 	return (0);
 }

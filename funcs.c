@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 08:58:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/01 09:32:13 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/13 06:05:09 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int			ft_issigned(char c)
 
 int			ft_whichsign(intmax_t i)
 {
-	ft_endian(i, TRUE);
-	return (!!(i & (1u << 1)));
+	return (i >= 0);
 }

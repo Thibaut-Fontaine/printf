@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/12 01:58:09 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/13 08:01:12 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ const char				*ft_gettype(const char *s)
 **				ssize_t ft_putuint32_fd(uint32_t i, int fd);
 */
 
-ssize_t					(*ft_typeinteger(const char *f))()
+ssize_t					(*ft_typeinteger(const char *f))(uintmax_t d, int fd)
 {
 	if (*f == 'U' || *f == 'u')
 		return (&ft_putuint_fdr);
@@ -50,28 +50,28 @@ ssize_t					(*ft_typeinteger(const char *f))()
 	if (*f == 'X')
 		return (&ft_puthexx_fdr);
 	else
-		return (&ft_putint_fdr);
+		return ((void*)&ft_putint_fdr);
 }
 
 /*
 ** renvoie le pt sur fonction correspondant au type et au modif. de longueur
 */
 
-ssize_t					(*ft_type(const char *f))()
+ssize_t					(*ft_type(const char *f))(uintmax_t d, int fd)
 {
 	if (*f == 'S' || (*f == 's' && *(f - 1) == 'l'))
-		return (&ft_putwstr_fdr);
+		return ((void*)&ft_putwstr_fdr);
 	if (*f == 's')
-		return (&ft_putstr_fdr);
+		return ((void*)&ft_putstr_fdr);
 	if (*f == 'C' || (*f == 'c' && *(f - 1) == 'l'))
-		return (&ft_putwchar_fdr);
+		return ((void*)&ft_putwchar_fdr);
 	if (*f == 'c')
 		return ((void*)&ft_putchar_fdr);
 	if (*f == 'd' || *f == 'i' || *f == 'D' || *f == 'U' || *f == 'u'
 			|| *f == 'o' || *f == 'O' || *f == 'x' || *f == 'X')
 		return (ft_typeinteger(f));
 	if (*f == 'p')
-		return (&ft_putadr_fdr);
+		return ((void*)&ft_putadr_fdr);
 	return (NULL);
 }
 
