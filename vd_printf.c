@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 15:54:56 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/14 16:59:59 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,22 @@
 */
 
 /*
-** parse, puis affiche une conversion. utilise les fonctions ci-dessus ^
+** affiche un nombre d'espaces ou de 0 correspondants a la largeur de champ
+*/
+
+t_size			ft_field(const char *s, int flag)
+{
+	t_size		t;
+
+	t.print = 0;
+	t.conv = 0;
+	(void)flag;
+	ft_atoi(s);
+	return (t);
+}
+
+/*
+** parse, puis affiche une conversion.
 ** renvoie le nombre de caracteres lus sur format (t.conv)
 ** ainsi que le nombre de caracteres ecrits. (t.print)
 */
@@ -64,11 +79,11 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	if (flag == 1)
 	{
 		t.print += ft_printdata(type, data, fd); // envoyer la precision dedans
-		ft_field(s + t.conv); // affiche des espaces apres
+		ft_field(s + t.conv, flag); // affiche des espaces apres
 	}
 	else
 	{
-		ft_field(s + t.conv); // affiche des espaces ou des 0 avant selon le flag (0 ou 2)
+		ft_field(s + t.conv, flag); // affiche des espaces ou des 0 avant selon le flag (0 ou 2)
 		t.print += ft_printdata(type, data, fd); // gerer la precision dedans
 	}
 	// largeur de champ en correspondance avec les flags : justifier d / g et 0
