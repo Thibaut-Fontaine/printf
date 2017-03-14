@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 11:05:06 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/14 13:28:36 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@
 */
 
 /*
-** affiche les caracteres specifies par les flags en fonction du type demande
-** valeur de renvoi :
-** dans t.conv : 1 si flag '-', 2 si flag '0', ret 0 sinon
-** dans t.print : le nombre de caracteres ecrits.
-*/
-
-/*
 ** parse, puis affiche une conversion. utilise les fonctions ci-dessus ^
 ** renvoie le nombre de caracteres lus sur format (t.conv)
 ** ainsi que le nombre de caracteres ecrits. (t.print)
@@ -61,9 +54,11 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	const char	*type;
 
 	t.print = 0;
-	t.conv = 2;
 	if (*(type = ft_gettype(s)) == 0)
+	{
+		t.conv = type - s;
 		return (t);
+	}
 	t = ft_flag(s, data, fd);
 	t.print += ft_printdata(type, data, fd);
 	t.conv = type - s + 1;
@@ -73,12 +68,13 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 /*
 ** si '%' est rencontre, appelle ft_convert_print, sinon ecrit le carac.
 */
-
+#include <stdio.h> //
 int				ft_vdprintf(int fd, const char *format, va_list ap)
 {
 	size_t		i;
 	size_t		ret;
 	t_size		tmp;
+	char		*chr;
 
 	i = 0;
 	ret = 0;
@@ -86,8 +82,12 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 	{
 		if (format[i] == '%')
 		{
-			if (format[i + 1] == '%' && (ret += ft_putchar_fdr('%', fd)))
-				i += 2;
+			if ((chr = ft_strchr(format + i + 1, '%')) != NULL
+					&& chr < ft_gettype(format + i))
+			{
+				ret += ft_putchar_fdr('%', fd);
+				i += chr - (format + i) + 1;
+			}
 			else
 			{
 				tmp = ft_convert_print(format + i, va_arg(ap, uintmax_t), fd);
