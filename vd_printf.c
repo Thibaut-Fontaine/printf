@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/13 11:38:50 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/14 11:05:06 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,41 +48,6 @@
 ** dans t.conv : 1 si flag '-', 2 si flag '0', ret 0 sinon
 ** dans t.print : le nombre de caracteres ecrits.
 */
-
-t_size			ft_flag(const char *s, uintmax_t data, int fd)
-{
-	t_size		ret;
-	char		t;
-	t_bool		h;
-
-	ret.conv = 0;
-	ret.print = 0;
-	h = FALSE;
-	t = *ft_gettype(s);
-	while (++s)
-	{
-		if (*s == '#')
-		{
-			if (t == 'o' || t == 'x' || t == 'X')
-			{
-				ret.print += ft_putchar_fdr('0', fd);
-				t != 'o' ? ret.print += ft_putchar_fdr(t, fd) : 0;
-			}
-		}
-		else if (*s == '0' && ret.conv != 1)
-			ret.conv = 2;
-		else if (*s == '-')
-			ret.conv = 1;
-		else if (*s == ' ' && h != TRUE && ft_issigned(t))
-			ret.print += ft_putchar_fdr(' ', fd);
-		else if (*s == '+' && ft_issigned(t))
-			ret.print += ft_putchar_fdr(ft_whichsign(s, data) ? '+'
-					: 0, fd * (h = TRUE));
-		else
-			break ;
-	}
-	return (ret);
-}
 
 /*
 ** parse, puis affiche une conversion. utilise les fonctions ci-dessus ^

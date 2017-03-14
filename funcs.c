@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 08:58:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/13 11:39:00 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/14 11:06:42 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int			ft_issigned(char c)
 	return (0);
 }
 
-#include <stdio.h> //
-
 int			ft_whichsign(const char *s, intmax_t i)
 {
 	s = ft_gettype(s);
@@ -40,5 +38,4 @@ int			ft_whichsign(const char *s, intmax_t i)
 	if (*(s - 1) == 'l' || *(s - 1) == 'j' || *(s - 1) == 'z')
 		return ((long int)i >= 0);
 	return ((int)i >= 0);
-	return (0);
 }

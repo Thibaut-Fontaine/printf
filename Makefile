@@ -6,7 +6,7 @@
 #    By: tfontain <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 04:52:55 by tfontain          #+#    #+#              #
-#    Updated: 2017/03/13 05:52:39 by tfontain         ###   ########.fr        #
+#    Updated: 2017/03/14 10:56:49 by tfontain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ CC = clang
 HEADER = ./printf.h
 FLAG = -Wall -Wextra -Werror -O3
 OPTION = -c -I $(HEADER)
-SRC = ./cast.c ./funcs.c ./gettype.c ./main_funcs.c ./putint.c ./vd_printf.c
+SRC = ./cast.c ./funcs.c ./gettype.c ./main_funcs.c ./putint.c ./vd_printf.c \
+	  ./flags.c
 
 OBJ = $(addsuffix .o,$(basename $(SRC)))
 
