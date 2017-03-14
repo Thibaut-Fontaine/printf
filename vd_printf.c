@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 15:49:34 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/14 15:54:56 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	if (*type == '\0')
 		return (t);
 	t = ft_flag(s, data, fd, &flag);
-	if (flag == 0)
+	if (flag == 1)
 	{
-		t.print += ft_printdata(type, data, fd); // gerer la precision dedans
-		ft_field(s + t.conv); //affiche des espaces apres
+		t.print += ft_printdata(type, data, fd); // envoyer la precision dedans
+		ft_field(s + t.conv); // affiche des espaces apres
 	}
 	else
 	{
-		ft_field(s + t.conv); // affiche un n. d'espaces ou de 0 avant selon le flag
-		t.print += ft_printdata(type, data, fd); // envoyer la precision dedans
+		ft_field(s + t.conv); // affiche des espaces ou des 0 avant selon le flag (0 ou 2)
+		t.print += ft_printdata(type, data, fd); // gerer la precision dedans
 	}
 	// largeur de champ en correspondance avec les flags : justifier d / g et 0
 	// precision : minimum pour les d i o u x X et maximum pour s S (tronquer)
