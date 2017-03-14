@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 10:59:36 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/14 14:10:32 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,34 @@ static size_t		ft_flagp(const char *s, uintmax_t data, t_bool *h, int fd)
 /*
 ** affiche les caracteres specifies par les flags en fonction du type demande
 ** valeur de renvoi :
-** dans t.conv : 1 si flag '-', 2 si flag '0', ret 0 sinon
+** dans *flag : 1 si flag '-', 2 si flag '0', ret 0 sinon
 ** dans t.print : le nombre de caracteres ecrits.
+** dans t.conv : le nombre de caracteres "passes"
 */
 
-t_size				ft_flag(const char *s, uintmax_t data, int fd)
+t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
 {
 	t_size			ret;
 	char			t;
 	t_bool			h;
 
+	*flag = 0;
 	ret.conv = 0;
 	ret.print = 0;
 	h = FALSE;
 	t = *ft_gettype(s);
-	while (++s)
+	while (++s && ++ret.conv)
 	{
 		if (*s == '#')
-			ft_flagtag(t, fd);
-		else if (*s == '0' && ret.conv != 1)
-			ret.conv = 2;
+			ret.print += ft_flagtag(t, fd);
+		else if (*s == '0' && *flag != 1)
+			*flag = 2;
 		else if (*s == '-')
-			ret.conv = 1;
+			*flag = 1;
 		else if (*s == ' ' && h != TRUE && ft_issigned(t))
-			ft_flags(fd);
+			ret.print += ft_flags(fd);
 		else if (*s == '+' && ft_issigned(t))
-			ft_flagp(s, data, &h, fd);
+			ret.print += ft_flagp(s, data, &h, fd);
 		else
 			break ;
 	}

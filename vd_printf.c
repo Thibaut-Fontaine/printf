@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 13:28:36 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/14 14:12:51 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@
 t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 {
 	t_size		t;
+	int			flag;
 	const char	*type;
 
+
 	t.print = 0;
-	if (*(type = ft_gettype(s)) == 0)
-	{
-		t.conv = type - s;
+	type = ft_gettype(s);
+	t.conv = type - s;
+	if (*type == '\0')
 		return (t);
-	}
-	t = ft_flag(s, data, fd);
+	t = ft_flag(s, data, fd, &flag);
+	
 	t.print += ft_printdata(type, data, fd);
 	t.conv = type - s + 1;
 	return (t);
@@ -68,7 +70,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 /*
 ** si '%' est rencontre, appelle ft_convert_print, sinon ecrit le carac.
 */
-#include <stdio.h> //
+
 int				ft_vdprintf(int fd, const char *format, va_list ap)
 {
 	size_t		i;
