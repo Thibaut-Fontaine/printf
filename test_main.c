@@ -5,28 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 14:01:24 by tfontain         ###   ########.fr       */
+/*   Created: 2017/03/15 16:32:47 by tfontain          #+#    #+#             */
+/*   Updated: 2017/03/15 18:54:40 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_main.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
+/*   Updated: 2017/03/15 16:32:41 by tfontain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "./libft/includes/libft.h"
 #include "./printf.h"
 #include <stdio.h>
-#include "./libft/includes/libft.h"
 #include <sys/types.h>
 #include <limits.h>
-#include "./libft/includes/libft.h"
 
 #include <locale.h> //
 
 int					main()
 {
-	int			r1;
-	int			r2;
+	setlocale(LC_ALL, "");
 
-	r1 = printf("%040d\n", 1);
-	r2 = ft_printf("%040d\n", 1);
-	
-	printf("%d %d\n", r1, r2);
+	ft_printf("%s\n", NULL);
+//	printf("%d", ft_atoi("blabla"));
 	return (0);
 }
+
+
+
+

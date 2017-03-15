@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 20:02:19 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/15 17:18:18 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,19 @@
 */
 
 /*
+** return the precision for the actual conversion, or return -1 if there is no.
+*/
+
+int				ft_getprecision(const char *s, char type)
+{
+	while (*s && *s != '.' && *s != type)
+		++s;
+	if (*s != '.')
+		return (-1);
+	return (ft_atoi(s + 1));
+}
+
+/*
 ** affiche un nombre d'espaces ou de 0 correspondants a la largeur de champ
 */
 
@@ -55,6 +68,7 @@ t_size			ft_field(const char *s, size_t n, int flag, int fd)
 	t.conv = 0;
 	i = ft_atoi(s);
 	(void)(flag + n);
+	i = 1;
 	while (--i)
 	{
 		ft_putchar_fdr(' ', fd);
@@ -73,7 +87,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	t_size		t;
 	int			flag;
 	const char	*type;
-
+	int			precision;
 
 	t.print = 0;
 	type = ft_gettype(s);
@@ -81,15 +95,16 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	if (*type == '\0')
 		return (t);
 	t = ft_flag(s, data, fd, &flag);
+	precision = ft_getprecision(s, *type);
 	if (flag == 1)
 	{
-		t.print += ft_printdata(type, data, fd); // envoyer la precision dedans
+		t.print += ft_printdata(type, data, fd, precision);
 		ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces apres
 	}
 	else
 	{
 		ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces ou des 0 avant selon le flag (0 ou 2)
-		t.print += ft_printdata(type, data, fd); // gerer la precision dedans
+		t.print += ft_printdata(type, data, fd, precision);
 	}
 	// largeur de champ en correspondance avec les flags : justifier d / g et 0
 	// precision : minimum pour les d i o u x X et maximum pour s S (tronquer)

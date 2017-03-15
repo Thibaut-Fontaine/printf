@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 15:34:31 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/15 18:57:06 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ ssize_t					(*ft_type(const char *f))(uintmax_t d, int fd)
 ** faire un cast specifique a chaque longueur
 */
 
-ssize_t					ft_printdata(const char *t, uintmax_t data, int fd)
+ssize_t					ft_printdata(const char *t, uintmax_t data, int fd,
+		int precision)
 {
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')
@@ -87,5 +88,20 @@ ssize_t					ft_printdata(const char *t, uintmax_t data, int fd)
 	else if (*t == 'd' || *t == 'i' || *t == 'D')
 		return (ft_typeint(t, data, fd));
 	else
+	{
+		if (*t == 'S' || *t == 's')
+		{
+			if (*t == 's' && *(t - 1) != 'l')
+			{
+				data == 0 ? data = (uintmax_t)"(null)" : 0;
+				//((char*)data)[precision] = 0;
+			}
+			else
+			{
+				data == 0 ? data = (uintmax_t)L"(null)" : 0;
+				//((wchar_t*)data)[precision] = 0;
+			}
+		}
 		return (ft_type(t)(data, fd));
+	}
 }
