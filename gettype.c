@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/16 11:50:21 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/16 15:34:49 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ ssize_t					(*ft_type(const char *f))(uintmax_t d, int fd)
 ssize_t					ft_printdata(const char *t, uintmax_t data, int fd,
 		int precision)
 {
+	ssize_t				ret;
+
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')
 		return (ft_typeuint(t, data, fd));
@@ -103,8 +105,11 @@ ssize_t					ft_printdata(const char *t, uintmax_t data, int fd,
 						: ft_memdup((void*)data, ft_strwlen((wchar_t*)data)));
 				((wchar_t*)data)[precision] = 0;
 			}
-			// il manque le free du datata apres le memdup
+			ret = ft_type(t)(data, fd);
+			free((void*)data);
 		}
-		return (ft_type(t)(data, fd));
+		else
+			return (ft_type(t)(data, fd));
+		return (ret);
 	}
 }
