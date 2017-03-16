@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/15 17:18:18 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/16 16:34:56 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,20 @@ int				ft_getprecision(const char *s, char type)
 
 /*
 ** affiche un nombre d'espaces ou de 0 correspondants a la largeur de champ
+** s pt sur largeur min. de champ, n nombre de caracs. ecrits
 */
 
-t_size			ft_field(const char *s, size_t n, int flag, int fd)
+size_t			ft_field(const char *s, size_t n, int flag, int fd)
 {
-	t_size		t;
 	int			i;
+	size_t		t;
 
-	t.print = 0;
-	t.conv = 0;
 	i = ft_atoi(s);
-	(void)(flag + n);
-	i = 1;
-	while (--i)
-	{
-		ft_putchar_fdr(' ', fd);
-	}
+	n = ((size_t)i > n ? i - n : 0);
+	flag = (flag == 2 ? '0' : ' ');
+	t = 0;
+	while (n--)
+		t += ft_putchar_fdr(flag, fd);
 	return (t);
 }
 
@@ -99,11 +97,11 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	if (flag == 1)
 	{
 		t.print += ft_printdata(type, data, fd, precision);
-		ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces apres
+		t.print += ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces apres
 	}
 	else
 	{
-		ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces ou des 0 avant selon le flag (0 ou 2)
+		t.print += ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces ou des 0 avant selon le flag (0 ou 2)
 		t.print += ft_printdata(type, data, fd, precision);
 	}
 	// largeur de champ en correspondance avec les flags : justifier d / g et 0

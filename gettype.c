@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/16 15:34:49 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/16 15:56:05 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,27 +89,24 @@ ssize_t					ft_printdata(const char *t, uintmax_t data, int fd,
 		return (ft_typeuint(t, data, fd));
 	else if (*t == 'd' || *t == 'i' || *t == 'D')
 		return (ft_typeint(t, data, fd));
-	else
+	else if (*t == 'S' || *t == 's')
 	{
-		if (*t == 'S' || *t == 's')
+		if (*t == 's' && *(t - 1) != 'l')
 		{
-			if (*t == 's' && *(t - 1) != 'l')
-			{
-				data = (uintmax_t)(data == 0 ? ft_memdup("(null)", 7)
-						: ft_memdup((void*)data, ft_strlen((char*)data)));
-				((char*)data)[precision] = 0;
-			}
-			else
-			{
-				data = (uintmax_t)(data == 0 ? ft_memdup("L(null)", 28)
-						: ft_memdup((void*)data, ft_strwlen((wchar_t*)data)));
-				((wchar_t*)data)[precision] = 0;
-			}
-			ret = ft_type(t)(data, fd);
-			free((void*)data);
+			data = (uintmax_t)(data == 0 ? ft_memdup("(null)", 7)
+					: ft_memdup((void*)data, ft_strlen((char*)data)));
+			((char*)data)[precision] = 0;
 		}
 		else
-			return (ft_type(t)(data, fd));
-		return (ret);
+		{
+			data = (uintmax_t)(data == 0 ? ft_memdup("L(null)", 28)
+					: ft_memdup((void*)data, ft_strwlen((wchar_t*)data)));
+			((wchar_t*)data)[precision] = 0;
+		}
+		ret = ft_type(t)(data, fd);
+		free((void*)data);
 	}
+	else
+		return (ft_type(t)(data, fd));
+	return (ret);
 }
