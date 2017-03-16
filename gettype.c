@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/16 11:27:55 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/16 11:50:21 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ ssize_t					ft_printdata(const char *t, uintmax_t data, int fd,
 						: ft_memdup((void*)data, ft_strwlen((wchar_t*)data)));
 				((wchar_t*)data)[precision] = 0;
 			}
+			// il manque le free du datata apres le memdup
 		}
 		return (ft_type(t)(data, fd));
 	}
