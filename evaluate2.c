@@ -1,34 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_main.c                                        :+:      :+:    :+:   */
+/*   evaluate2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/16 20:09:47 by tfontain         ###   ########.fr       */
+/*   Created: 2017/03/16 19:54:50 by tfontain          #+#    #+#             */
+/*   Updated: 2017/03/16 20:04:08 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/includes/libft.h"
 #include "./printf.h"
-#include <stdio.h>
-#include <sys/types.h>
-#include <limits.h>
 
-#include <locale.h> //
-
-int					main()
+size_t			ft_evaluatepint(intmax_t data)
 {
-	setlocale(LC_ALL, "");
-	int r1;
-	int r2;
+	size_t		r;
 
-	r1 = ft_printf("\n");
-	r2 = printf("%p", (void*)55555);
-	return (0);
+	r = 0;
+	if (data < 0)
+	{
+		data = -data;
+		++r;
+	}
+	while (data)
+	{
+		data /= 10;
+		++r;
+	}
+	return (r);
 }
 
+size_t			ft_evaluatepbase(uintmax_t data, int base)
+{
+	size_t		r;
 
-
-
+	r = 0;
+	while (data)
+	{
+		data /= base;
+		++r;
+	}
+	return (r);
+}

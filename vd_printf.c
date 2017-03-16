@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/16 16:34:56 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/16 19:12:13 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ size_t			ft_field(const char *s, size_t n, int flag, int fd)
 ** ainsi que le nombre de caracteres ecrits. (t.print)
 */
 
+//
+//
+// MANQUE :
+// la precision des ints et la largeur de champ quand le flag n'est pas '-'
+//
+//
+
 t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 {
 	t_size		t;
@@ -104,6 +111,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 		t.print += ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces ou des 0 avant selon le flag (0 ou 2)
 		t.print += ft_printdata(type, data, fd, precision);
 	}
+	ft_putnbr(t.print);
 	// largeur de champ en correspondance avec les flags : justifier d / g et 0
 	// precision : minimum pour les d i o u x X et maximum pour s S (tronquer)
 	//t.print += ft_printdata(type, data, fd);
