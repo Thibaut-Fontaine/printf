@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 15:25:48 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 15:51:19 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 			if ((chr = ft_strchr(format + i + 1, '%')) != NULL
 					&& chr < ft_gettype(format + i))
 			{
+				ft_putnc(' ', , fd);
 				ret += ft_putchar_fdr('%', fd);
 				i += chr - (format + i) + 1;
 			}
