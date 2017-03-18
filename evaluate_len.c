@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 18:01:28 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 12:05:05 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 12:54:28 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** including the precision.
 */
 
-ssize_t			ft_evaluate_int(const char *t, uintmax_t data)
+size_t			ft_evaluate_int(const char *t, uintmax_t data)
 {
 	if (*t == 'D')
 		return (ft_evaluatepint((long int)data));

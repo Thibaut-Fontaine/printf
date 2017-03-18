@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 08:58:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 10:26:53 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 12:55:52 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,9 @@ size_t		ft_putnc(char c, size_t i, int fd)
 	while (i--)
 		ret += ft_putchar_fdr(c, fd);
 	return (ret);
+}
+
+size_t		ft_diff(uintmax_t a, uintmax_t b)
+{
+	return (a > b ? a - b : b - a);
 }

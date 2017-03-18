@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 10:26:50 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 12:56:11 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ size_t				ft_evaluate_len(const char *t, uintmax_t data,
 		int precision);
 size_t				ft_evaluatepint(intmax_t data);
 size_t				ft_evaluatepbase(uintmax_t data, int base);
+size_t				ft_evaluate_int(const char *t, uintmax_t data);
+size_t				ft_evaluate_uint(const char *t, uintmax_t data);
 size_t				ft_putnc(char c, size_t i, int fd);
+size_t				ft_diff(uintmax_t a, uintmax_t b);
 
 #endif

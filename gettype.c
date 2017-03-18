@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 10:29:50 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 13:01:29 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,27 @@ ssize_t				ft_printdata(const char *t, uintmax_t data, int fd,
 {
 	ssize_t			ret;
 
+	ret = 0;
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')
-		return (ft_typeuint(t, data, fd));
-	else if (*t == 'd' || *t == 'i' || *t == 'D')
-		return (ft_typeint(t, data, fd));
+		return (ft_diff(ft_typeuint(t, data, fd), ft_evaluate_uint(t, data)));
+		else if (*t == 'd' || *t == 'i' || *t == 'D')
+		return (ft_diff(ft_typeint(t, data, fd), ft_evaluate_int(t, data)));
 	else if (precision != -1 && (*t == 'S' || *t == 's'))
 	{
 		if (*t == 's' && *(t - 1) != 'l')
 		{
 			data = (uintmax_t)(data == 0 ? ft_memdup("(null)", 7)
 					: ft_memdup((void*)data, ft_strlen((char*)data)));
-			((char*)data)[precision] = 0;
+			if (precision < ft_strlen((char*)data))
+				((char*)data)[precision] = 0;
 		}
 		else
 		{
 			data = (uintmax_t)(data == 0 ? ft_memdup("L(null)", 28)
 					: ft_memdup((void*)data, ft_strwlen((wchar_t*)data)));
-			((wchar_t*)data)[precision] = 0;
+			if (precision <= ft_strwlen((wchar_t*)data))
+				((wchar_t*)data)[precision] = 0;
 		}
 		ret = ft_type(t)(data, fd);
 		free((void*)data);
