@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/15 16:34:42 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 09:38:16 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,11 @@ ssize_t				ft_puthexx_fdr(uintmax_t i, int fd);
 
 ssize_t				ft_typeint(const char *t, uintmax_t data, int fd);
 ssize_t				ft_typeuint(const char *t, uintmax_t data, int fd);
+
+
+size_t				ft_evaluate_len(const char *t, uintmax_t data,
+		int precision);
+size_t				ft_evaluatepint(intmax_t data);
+size_t				ft_evaluatepbase(uintmax_t data, int base);
 
 #endif
