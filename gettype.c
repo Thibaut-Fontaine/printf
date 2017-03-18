@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 13:14:57 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 15:25:52 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,24 @@ ssize_t				ft_printdata(const char *t, uintmax_t data, int fd,
 	ret = 0;
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')
-		return (ft_diff(ft_typeuint(t, data, fd), ft_evaluate_uint(t, data)));
-		else if (*t == 'd' || *t == 'i' || *t == 'D')
-		return (ft_diff(ft_typeint(t, data, fd), ft_evaluate_int(t, data)));
-	else if (precision != -1 && (*t == 'S' || *t == 's'))
+	{
+		if (precision == 0 && data == 0)
+			return (0);
+		if (precision != -1)
+			ft_putnc('0', precision > (ret = ft_evaluate_uint(t, data))
+					? precision - ret : 0, fd);
+		return (ft_typeuint(t, data, fd));
+	}
+	else if (*t == 'd' || *t == 'i' || *t == 'D')
+	{
+		if (precision == 0 && data == 0)
+			return (0);
+		if (precision != -1)
+			ft_putnc('0', precision > (ret = ft_evaluate_int(t, data))
+					? precision - ret : 0, fd);
+		return (ft_typeint(t, data, fd));
+	}
+		else if (precision != -1 && (*t == 'S' || *t == 's'))
 	{
 		if (*t == 's' && *(t - 1) != 'l')
 		{

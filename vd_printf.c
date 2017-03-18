@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 10:51:36 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 15:25:48 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,6 @@ size_t			ft_field(const char *s, size_t n, int flag, int fd)
 ** ainsi que le nombre de caracteres ecrits. (t.print)
 */
 
-//
-//
-// MANQUE :
-// la precision des ints
-//
-//
-
 t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 {
 	t_size		t;
@@ -102,7 +95,8 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 		return (t);
 	t = ft_flag(s, data, fd, &flag); // prblm flag affichage avant le field
 	// et prblm pour affichage du 0 si t == 'o'
-	precision = ft_getprecision(s, *type);
+	if ((precision = ft_getprecision(s, *type)) != -1 && flag != 1)
+		flag = 0;
 	if (flag == 1)
 	{
 		t.print = ft_printdata(type, data, fd, precision); // precision des ints
