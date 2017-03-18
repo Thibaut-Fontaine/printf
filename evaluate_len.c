@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 18:01:28 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 09:39:20 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 12:05:05 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,11 @@ size_t			ft_evaluate_len(const char *t, uintmax_t data, int precision)
 
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')
-		return ((r = ft_evaluate_uint(t, data)) < precision ? precision : r);
+		return ((int)(r = ft_evaluate_uint(t, data)) < precision ?
+				precision : r);
 	else if (*t == 'd' || *t == 'i' || *t == 'D')
-		return ((r = ft_evaluate_int(t, data)) < precision ? precision : r);
+		return ((int)(r = ft_evaluate_int(t, data)) < precision ?
+				precision : r);
 	else if (*t == 'S' || *t == 's')
 	{
 		if (precision != -1)

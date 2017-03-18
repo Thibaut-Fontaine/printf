@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 09:50:48 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 12:32:29 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int					main()
 	setlocale(LC_ALL, "");
 
 	int		a;
-	printf("%10o", 123);
+	ft_printf("%14Syo\n", L"åßsal´®ut");
+	printf("%14Syo\n", L"åßsal´®ut");
 	return (0);
 }
 

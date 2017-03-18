@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 08:58:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 11:06:42 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 10:26:53 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ int			ft_whichsign(const char *s, intmax_t i)
 	if (*(s - 1) == 'l' || *(s - 1) == 'j' || *(s - 1) == 'z')
 		return ((long int)i >= 0);
 	return ((int)i >= 0);
+}
+
+size_t		ft_putnc(char c, size_t i, int fd)
+{
+	size_t	ret;
+
+	ret = 0;
+	while (i--)
+		ret += ft_putchar_fdr(c, fd);
+	return (ret);
 }

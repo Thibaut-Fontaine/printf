@@ -6,45 +6,47 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 10:06:58 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 10:48:13 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./printf.h"
-// virer les statics qui sont dans les fonctions !
-// (a cause d'un possible rappel de printf)
-static size_t		ft_flagtag(char t, int fd)
+
+// pour t == 'o' n'ecrire le 0
+// que si il n'y en a pas deja sur la sortie (juste avant)
+static size_t		ft_flagtag(char t, int fd, t_bool *tag)
 {
 	size_t			r;
 
 	r = 0;
-	if (t == 'o' || t == 'x' || t == 'X')
+	if (*tag != TRUE)
 	{
-		r += ft_putchar_fdr('0', fd);
-		t != 'o' ? r += ft_putchar_fdr(t, fd) : 0;
+		*tag = TRUE;
+		if (t == 'o' || t == 'x' || t == 'X')
+		{
+			r += ft_putchar_fdr('0', fd);
+			t != 'o' ? r += ft_putchar_fdr(t, fd) : 0;
+		}
 	}
 	return (r);
 }
 
-static size_t		ft_flags(t_bool h, char tt, int fd)
+static size_t		ft_flags(t_bool h, char tt, int fd, t_bool *ss)
 {
-	static t_bool	t = FALSE;
-
-	if (t != TRUE && h != TRUE && ft_issigned(tt))
+	if (*ss != TRUE && h != TRUE && ft_issigned(tt))
 	{
-		t = TRUE;
+		*ss = TRUE;
 		return (ft_putchar_fdr(' ', fd));
 	}
 	return (0);
 }
 
-static size_t		ft_flagp(const char *s, uintmax_t data, t_bool *h, int fd)
+static size_t		ft_flagp(const char *s, uintmax_t data, t_bool *h, int fd,
+		t_bool *p)
 {
-	static t_bool	t = FALSE;
-
-	if (t != TRUE)
+	if (*p != TRUE)
 	{
-		t = TRUE;
+		*p = TRUE;
 		*h = TRUE;
 		return (ft_putchar_fdr(ft_whichsign(s, data) ? '+' : 0, fd));
 	}
@@ -64,24 +66,31 @@ t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
 	t_size			ret;
 	char			t;
 	t_bool			h;
+	t_bool			tag;
+	t_bool			ss;
+	t_bool			p;
 
 	*flag = 0;
 	ret.conv = 0;
 	ret.print = 0;
 	h = FALSE;
 	t = *ft_gettype(s);
+
+	tag = FALSE;
+	ss = FALSE;
+	p = FALSE;
 	while (++s && ++ret.conv)
 	{
 		if (*s == '#')
-			ret.print += ft_flagtag(t, fd);
+			ret.print += ft_flagtag(t, fd, &tag);
 		else if (*s == '0')
 			*flag != 1 && (*flag = 2);
 		else if (*s == '-')
 			*flag = 1;
 		else if (*s == ' ')
-			ret.print += ft_flags(h, t, fd);
+			ret.print += ft_flags(h, t, fd, &ss);
 		else if (*s == '+')
-			ft_issigned(t) && (ret.print += ft_flagp(s, data, &h, fd));
+			ft_issigned(t) && (ret.print += ft_flagp(s, data, &h, fd, &p));
 		else
 			break ;
 	}

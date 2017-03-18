@@ -6,7 +6,7 @@
 #    By: tfontain <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 04:52:55 by tfontain          #+#    #+#              #
-#    Updated: 2017/03/15 18:34:29 by tfontain         ###   ########.fr        #
+#    Updated: 2017/03/18 12:03:51 by tfontain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ HEADER = ./printf.h
 FLAG = -Wall -Wextra -Werror -O3
 OPTION = -c -I $(HEADER)
 SRC = ./cast.c ./funcs.c ./gettype.c ./main_funcs.c ./putint.c ./vd_printf.c \
-	  ./flags.c
+	  ./flags.c ./evaluate_len.c ./evaluate2.c
 
 OBJ = $(addsuffix .o,$(basename $(SRC)))
 
