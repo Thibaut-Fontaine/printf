@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 09:37:37 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 10:14:45 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				ft_getprecision(const char *s, char type)
 
 /*
 ** affiche un nombre d'espaces ou de 0 correspondants a la largeur de champ
-** s pt sur largeur min. de champ, n nombre de caracs. ecrits
+** s pt sur largeur min. de champ, n nombre de caracs. deja ecrits
 */
 
 size_t			ft_field(const char *s, size_t n, int flag, int fd)
@@ -93,6 +93,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	int			flag;
 	const char	*type;
 	int			precision;
+	int			field;
 
 	t.print = 0;
 	type = ft_gettype(s);
@@ -103,15 +104,16 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	precision = ft_getprecision(s, *type);
 	if (flag == 1)
 	{
-		t.print += ft_printdata(type, data, fd, precision);
-		t.print += ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces apres
+		t.print = ft_printdata(type, data, fd, precision);
+		t.print += ft_field(s + t.conv, t.print, flag, fd);
 	}
 	else
 	{
-		t.print += ft_field(s + t.conv, t.print, flag, fd); // affiche des espaces ou des 0 avant selon le flag (0 ou 2)
+		field = t.print;
+		field += ft_evaluate_len(type, data, precision);
+		t.print += ft_field(s + t.conv, field, flag, fd);
 		t.print += ft_printdata(type, data, fd, precision);
 	}
-	ft_putnbr(t.print);
 	// largeur de champ en correspondance avec les flags : justifier d / g et 0
 	// precision : minimum pour les d i o u x X et maximum pour s S (tronquer)
 	//t.print += ft_printdata(type, data, fd);

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/16 18:58:25 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 10:16:17 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 ** see also the folder ./put_funcs/
 */
 
-const char				*ft_gettype(const char *s)
+const char			*ft_gettype(const char *s)
 {
-	size_t				n;
+	size_t			n;
 
 	n = 0;
 	while (s[n] && s[n] != 's' && s[n] != 'S' && s[n] != 'p' && s[n] != 'd' &&
@@ -39,7 +39,7 @@ const char				*ft_gettype(const char *s)
 **				ssize_t ft_putuint32_fd(uint32_t i, int fd);
 */
 
-ssize_t					(*ft_typeinteger(const char *f))(uintmax_t d, int fd)
+ssize_t				(*ft_typeinteger(const char *f))(uintmax_t d, int fd)
 {
 	if (*f == 'U' || *f == 'u')
 		return (&ft_putuint_fdr);
@@ -57,7 +57,7 @@ ssize_t					(*ft_typeinteger(const char *f))(uintmax_t d, int fd)
 ** renvoie le pt sur fonction correspondant au type et au modif. de longueur
 */
 
-ssize_t					(*ft_type(const char *f))(uintmax_t d, int fd)
+ssize_t				(*ft_type(const char *f))(uintmax_t d, int fd)
 {
 	if (*f == 'S' || (*f == 's' && *(f - 1) == 'l'))
 		return ((void*)&ft_putwstr_fdr);
@@ -80,10 +80,10 @@ ssize_t					(*ft_type(const char *f))(uintmax_t d, int fd)
 ** ne pas gerer la precison si == -1
 */
 
-ssize_t					ft_printdata(const char *t, uintmax_t data, int fd,
+ssize_t				ft_printdata(const char *t, uintmax_t data, int fd,
 		int precision)
 {
-	ssize_t				ret;
+	ssize_t			ret;
 
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')

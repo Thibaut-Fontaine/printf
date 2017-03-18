@@ -6,12 +6,13 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/15 13:07:10 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 10:06:58 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./printf.h"
-
+// virer les statics qui sont dans les fonctions !
+// (a cause d'un possible rappel de printf)
 static size_t		ft_flagtag(char t, int fd)
 {
 	size_t			r;
