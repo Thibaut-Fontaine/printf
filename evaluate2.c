@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 19:54:50 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/16 20:04:08 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/18 13:20:17 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t			ft_evaluatepint(intmax_t data)
 {
 	size_t		r;
 
+	if (data == 0)
+		return (1);
 	r = 0;
 	if (data < 0)
 	{
@@ -34,6 +36,8 @@ size_t			ft_evaluatepbase(uintmax_t data, int base)
 {
 	size_t		r;
 
+	if (data == 0)
+		return (1);
 	r = 0;
 	while (data)
 	{
