@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 15:25:52 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/19 17:18:04 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ ssize_t				ft_printdata(const char *t, uintmax_t data, int fd,
 		if (precision != -1)
 			ft_putnc('0', precision > (ret = ft_evaluate_uint(t, data))
 					? precision - ret : 0, fd);
-		return (ft_typeuint(t, data, fd));
+		return (precision > (ret = ft_typeuint(t, data, fd)) ? precision : ret);
 	}
 	else if (*t == 'd' || *t == 'i' || *t == 'D')
 	{
@@ -103,7 +103,7 @@ ssize_t				ft_printdata(const char *t, uintmax_t data, int fd,
 		if (precision != -1)
 			ft_putnc('0', precision > (ret = ft_evaluate_int(t, data))
 					? precision - ret : 0, fd);
-		return (ft_typeint(t, data, fd));
+		return (precision > (ret = ft_typeint(t, data, fd)) ? precision : ret);
 	}
 		else if (precision != -1 && (*t == 'S' || *t == 's'))
 	{

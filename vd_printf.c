@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/19 16:01:59 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/19 16:48:57 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 				tmp.conv = chr - (format + i);
 				chr = ft_memdup(format + i, tmp.conv);
 				chr[tmp.conv + 1] = '\0';
-				chr[tmp.conv] = 's';
-				tmp = ft_convert_print(chr, (uintmax_t)"%", fd);
+				chr[tmp.conv] = 'c';
+				tmp = ft_convert_print(chr, '%', fd);
 				free(chr);
 				ret += tmp.print;
 				i += tmp.conv;
