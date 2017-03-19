@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 13:17:44 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/19 17:58:24 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
 		else if (*s == '-')
 			*flag = 1;
 		else if (*s == ' ')
-			ret.print += ft_flags(h, t, fd, &ss);
+			ft_whichsign(s, data) == 1 ? ret.print += ft_flags(h, t, fd, &ss) : 0;
 		else if (*s == '+')
 			ft_issigned(t) && (ret.print += ft_flagp(s, data, &h, fd, &p));
 		else
