@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 16:41:16 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:56:50 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,25 +130,18 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 	{
 		if (format[i] == '%')
 		{
-			if ((chr = ft_strchr(format + i + 1, '%')) != NULL
+			if ((chr = ft_strchr(format + i + 1, '%')) != NULL // si %...% avec aucun indic. de conv entre les deux
 					&& chr < ft_gettype(format + i))
 			{
-				/* OLD :
-				ft_putnc(' ', ft_atoi(format + i + 1), fd);
-				ret += ft_putchar_fdr('%', fd);
-				i += chr - (format + i) + 1;
-				*/
-				/* NEW ? : (il faut gerer largeur de champ flag etc pour le "%%")
-				tmp.conv = chr - (format + i + 1);
-				ft_putnbr(tmp.conv);
-				chr = ft_memdup(format + i + 1, tmp.conv);
-				chr[tmp.conv] = 0;
-				chr[tmp.conv - 1] = 'd';
-				ft_putstr("->"); ft_putstr(chr); ft_putstr("<-\n");
-				//tmp = ft_convert_print(chr, 0 , fd);
-				i += 2;
+				tmp.conv = chr - (format + i);
+				chr = ft_memdup(format + i, tmp.conv);
+				chr[tmp.conv + 1] = '\0';
+				chr[tmp.conv] = 's';
+				ft_putstr("->");ft_putstr(chr);ft_putstr("<-\n");
+				tmp = ft_convert_print(chr, (uintmax_t)"%", fd);
 				free(chr);
-				*/
+				ret += tmp.print;
+				i += tmp.conv;
 			}
 			else
 			{
