@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/19 15:57:08 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/19 17:15:35 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@ int					main()
 {
 	setlocale(LC_ALL, "");
 
-	ft_printf("%7%");
-	//printf("aa |%d%| th\n");
+	int	r1;
+	int	r2;
+
+	r1 = ft_printf("%.10d~~myprintf\n", 42);
+	r2 = printf("%.10d~~original\n", 42);
+	printf("myprintf ret = %d\noriginal ret = %d\n", r1, r2);
 	return (0);
 }
 

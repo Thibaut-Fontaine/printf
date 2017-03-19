@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/19 16:48:57 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/19 20:19:31 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,22 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	const char	*type;
 	int			precision;
 	int			field;
+	//t_size		tmp;
 
 	t.print = 0;
 	type = ft_gettype(s);
 	t.conv = type - s;
 	if (*type == '\0')
 		return (t);
+	//flag = ft_flag0m(s);
 	t = ft_flag(s, data, fd, &flag); // prblm flag affichage avant le field
 	// et prblm pour affichage du 0 si t == 'o'
 	if ((precision = ft_getprecision(s, *type)) != -1 && flag != 1)
 		flag = 0;
 	if (flag == 1)
 	{
-		t.print = ft_printdata(type, data, fd, precision); // precision des ints
+		//t = ft_flag(s, data, fd, &flag);
+		t.print = ft_printdata(type, data, fd, precision);
 		t.print += ft_field(s + t.conv, t.print, flag, fd);
 	}
 	else
@@ -107,7 +110,10 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 		field = t.print;
 		field += ft_evaluate_len(type, data, precision);
 		t.print += ft_field(s + t.conv, field, flag, fd);
-		t.print += ft_printdata(type, data, fd, precision); // precision des ints
+		//tmp = ft_flag(s, data, fd, &flag);
+		//t.print += tmp.print;
+		//t.conv += tmp.conv;
+		t.print += ft_printdata(type, data, fd, precision);
 	}
 	t.conv = type - s + 1;
 	return (t);
