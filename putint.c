@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 08:45:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/14 22:42:30 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/20 22:11:53 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@
 
 ssize_t				ft_putint_fdr(intmax_t i, int fd)
 {
-	ssize_t			r;
+	ssize_t			ret;
 
-	r = 0;
+	ret = 0;
+	if (i + 1 == -9223372036854775807)
+		return (ft_putstr_fdr("-9223372036854775808", fd));
 	if (i < 0)
 	{
-		r += ft_putchar_fdr('-', fd);
+		ret += ft_putchar_fdr('-', fd);
 		i = -i;
 	}
-	if (i >= 10)
-		r += ft_putint_fdr(i / 10, fd) + ft_putint_fdr(i % 10, fd);
-	else
-		r += ft_putchar_fdr(i + '0', fd);
-	return (r);
+	if (i / 10 != 0)
+		ret += ft_putint_fdr(i / 10, fd);
+	ret += ft_putchar_fdr(i % 10 + '0', fd);
+	return (ret);
 }
 
 ssize_t				ft_putuint_fdr(uintmax_t i, int fd)
