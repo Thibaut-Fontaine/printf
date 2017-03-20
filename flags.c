@@ -6,13 +6,13 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/19 19:58:33 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/20 14:37:04 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./printf.h"
 
-// pour t == 'o' n'ecrire le 0
+// pour t == 'o' n'ecrire le 0 !!
 // que si il n'y en a pas deja sur la sortie (juste avant)
 static size_t		ft_flagtag(char t, int fd, uintmax_t data, t_bool *tag)
 {
@@ -43,12 +43,10 @@ static size_t		ft_flags(t_bool h, char tt, int fd, t_bool *ss)
 	return (0);
 }
 
-static size_t		ft_flagp(const char *s, uintmax_t data, t_bool *h, int fd,
-		t_bool *p)
+static size_t		ft_flagp(const char *s, uintmax_t data, t_bool *h, int fd)
 {
-	if (*p != TRUE)
+	if (*h != TRUE)
 	{
-		*p = TRUE;
 		*h = TRUE;
 		return (ft_putchar_fdr(ft_whichsign(s, data) ? '+' : 0, fd));
 	}
@@ -70,7 +68,6 @@ t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
 	t_bool			h;
 	t_bool			tag;
 	t_bool			ss;
-	t_bool			p;
 
 	*flag = 0;
 	ret.conv = 0;
@@ -80,7 +77,6 @@ t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
 
 	tag = FALSE;
 	ss = FALSE;
-	p = FALSE;
 	while (++s && ++ret.conv)
 	{
 		if (*s == '#')
@@ -92,7 +88,7 @@ t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
 		else if (*s == ' ')
 			ft_whichsign(s, data) == 1 ? ret.print += ft_flags(h, t, fd, &ss) : 0;
 		else if (*s == '+')
-			ft_issigned(t) && (ret.print += ft_flagp(s, data, &h, fd, &p));
+			ft_issigned(t) && (ret.print += ft_flagp(s, data, &h, fd));
 		else
 			break ;
 	}
@@ -109,11 +105,11 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 	r.print = 0;
 	t_bool			tag;
 	t_bool			ss;
-	t_bool			p;
+	t_bool			h;
 
+	h = FALSE;
 	tag = FALSE;
 	ss = FALSE;
-	p = FALSE;
 	t = *ft_gettype(s);
 	while (++s && ++r.conv)
 	{
@@ -124,22 +120,25 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 				tag = TRUE;
 				if ((t == 'x' || t == 'X') && data != 0)
 					r.print += 2;
-				if (t == 'o')
+				if (t == 'o') // sauf si deja un '0'
 					r.print += 1;
 			}
 		}
 		else if (*s == ' ')
 		{
-			if (ss == FALSE)
+			if (ss == FALSE && ft_whichsign(s, data) == 1 && h != TRUE
+					&& ft_issigned(t))
 			{
 				ss = TRUE;
+				r.print += 1;
 			}
 		}
 		else if (*s == '+')
 		{
-			if (p == FALSE)
+			if (h == FALSE)
 			{
-				p = TRUE;
+				h = TRUE;
+				r.print += ft_whichsign(s, data) ? 1 : 0;
 			}
 		}
 		else if (*s == '0')

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 18:01:28 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/18 12:54:28 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/20 15:19:59 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ size_t			ft_evaluate_string(const char *t, uintmax_t data)
 	wchar_t		*pt;
 
 	if (*t == 's' && *(t - 1) != 'l')
+	{
+		data = (data == 0 ? (uintmax_t)"(null)" : data);
 		return (ft_strlen((char*)data));
+	}
+	data = (data == 0 ? (uintmax_t)L"(null)" : data);
 	pt = (wchar_t*)data;
 	ret = 0;
 	while (*pt)
@@ -108,7 +112,7 @@ size_t			ft_evaluate_len(const char *t, uintmax_t data, int precision)
 	else if (*t == 'S' || *t == 's')
 	{
 		if (precision != -1)
-			return (precision);
+			return (precision); // pas sur pour wchar_t *
 		return (ft_evaluate_string(t, data));
 	}
 	else if (*t == 'c' || *t == 'C')

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/19 17:15:35 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/20 15:20:29 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int					main()
 {
 	setlocale(LC_ALL, "");
 
-	int	r1;
-	int	r2;
+	int		r1;
+	int		r2;
 
-	r1 = ft_printf("%.10d~~myprintf\n", 42);
-	r2 = printf("%.10d~~original\n", 42);
+	ft_printf("@moulitest: %s\n", NULL);
+	printf("@moulitest: %s\n", NULL);
 	printf("myprintf ret = %d\noriginal ret = %d\n", r1, r2);
 	return (0);
 }
