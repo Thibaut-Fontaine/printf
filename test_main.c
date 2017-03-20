@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/20 15:20:29 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:54:23 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int					main()
 	int		r1;
 	int		r2;
 
-	ft_printf("@moulitest: %s\n", NULL);
-	printf("@moulitest: %s\n", NULL);
+	r1 = ft_printf("%5.4s|\n", "");
+	r2 = printf("%5.4s|\n", "");
 	printf("myprintf ret = %d\noriginal ret = %d\n", r1, r2);
 	return (0);
 }

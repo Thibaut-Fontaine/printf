@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 18:01:28 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/20 15:19:59 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/20 18:07:34 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,25 @@ size_t			ft_evaluate_char(const char *t, uintmax_t data)
 	return (0);
 }
 
-size_t			ft_evaluate_string(const char *t, uintmax_t data)
+size_t			ft_evaluate_string(const char *t, uintmax_t data,
+		int p)
 {
 	size_t		ret;
 	wchar_t		*pt;
+	size_t		len;
 
 	if (*t == 's' && *(t - 1) != 'l')
 	{
 		data = (data == 0 ? (uintmax_t)"(null)" : data);
-		return (ft_strlen((char*)data));
+		len = ft_strlen((char*)data);
+		if (p != -1 && len > (size_t)p)
+			return (p);
+		return (len);
 	}
 	data = (data == 0 ? (uintmax_t)L"(null)" : data);
+	len = ft_strwlen((wchar_t*)data);
+	if (p != -1 && len > (size_t)p)
+		return (p);
 	pt = (wchar_t*)data;
 	ret = 0;
 	while (*pt)
@@ -104,17 +112,21 @@ size_t			ft_evaluate_len(const char *t, uintmax_t data, int precision)
 
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')
-		return ((int)(r = ft_evaluate_uint(t, data)) < precision ?
-				precision : r);
+		{
+			if (data == 0 && precision == 0)
+				return (0);
+			return ((int)(r = ft_evaluate_uint(t, data)) < precision ?
+					precision : r);
+		}
 	else if (*t == 'd' || *t == 'i' || *t == 'D')
+	{
+		if (data == 0 && precision == 0)
+			return (0);
 		return ((int)(r = ft_evaluate_int(t, data)) < precision ?
 				precision : r);
-	else if (*t == 'S' || *t == 's')
-	{
-		if (precision != -1)
-			return (precision); // pas sur pour wchar_t *
-		return (ft_evaluate_string(t, data));
 	}
+	else if (*t == 'S' || *t == 's')
+		return (ft_evaluate_string(t, data, precision));
 	else if (*t == 'c' || *t == 'C')
 		return (ft_evaluate_char(t, data));
 	else if (*t == 'p')

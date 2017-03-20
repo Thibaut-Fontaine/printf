@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/20 14:37:04 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:19:09 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
 			*flag != 1 && (*flag = 2);
 		else if (*s == '-')
 			*flag = 1;
-		else if (*s == ' ')
-			ft_whichsign(s, data) == 1 ? ret.print += ft_flags(h, t, fd, &ss) : 0;
 		else if (*s == '+')
 			ft_issigned(t) && (ret.print += ft_flagp(s, data, &h, fd));
+		else if (*s == ' ')
+			ft_whichsign(s, data) == 1 ? ret.print += ft_flags(h, t, fd, &ss) : 0;
 		else
 			break ;
 	}
@@ -124,6 +124,14 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 					r.print += 1;
 			}
 		}
+		else if (*s == '+')
+		{
+			if (h == FALSE)
+			{
+				h = TRUE;
+				r.print += ft_whichsign(s, data) ? 1 : 0;
+			}
+		}
 		else if (*s == ' ')
 		{
 			if (ss == FALSE && ft_whichsign(s, data) == 1 && h != TRUE
@@ -131,14 +139,6 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 			{
 				ss = TRUE;
 				r.print += 1;
-			}
-		}
-		else if (*s == '+')
-		{
-			if (h == FALSE)
-			{
-				h = TRUE;
-				r.print += ft_whichsign(s, data) ? 1 : 0;
 			}
 		}
 		else if (*s == '0')
