@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/20 17:07:08 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/21 00:59:32 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	}
 	else
 	{
+		if (flag == 2 && (*type == 'd' || *type == 'D') && ft_whichsign(s, data) == 0) //
+			t.print += ft_putchar_fdr('-', fd); // le '-' avant le field de 00000... !
 		//field = ft_evaluate_len(type, data, precision) + t.print;
 		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision) + t.print), flag, fd);
 		ft_flag(s, data, fd, &flag);
