@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 00:42:43 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/20 22:06:06 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:18:50 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@
 
 int					main()
 {
-	setlocale(LC_ALL, "");
+	char d1 = -17;
+	short d2 = -7987;
+	int	 d3 = -98444517;
+	long int d4 = -984155415145641564;
 
-	int		r1;
-	int		r2;
+// 1 positif et 0 negatif
 
-	//unsigned long long int	i = 9223372036854775808;
-
-	//printf("%lld\n", i);
-	r1 = ft_printf("%lld|\n", -9223372034775807);
-	r2 = printf("%lld|\n", -9223372036855807);
-	printf("myprintf ret = %d\noriginal ret = %d\n", r1, r2);
+	printf("|%d, %d, %d, %d|", ft_whichsign("%hhd", d1), ft_whichsign("%hd", d2), ft_whichsign("%d", d3), ft_whichsign("%ld", d4));
 	return (0);
 }
 

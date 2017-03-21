@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/21 00:59:32 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:21:05 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,20 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	if (flag == 1) // ?
 	{
 		ft_flag(s, data, fd, &flag);
+		if ((*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
+			ft_putchar_fdr('-', fd); // le '-' avant le field de 00000... !
 		t.print += ft_printdata(type, data, fd, precision); // +=
 		t.print += ft_field(s + t.conv, t.print, flag, fd);
 	}
 	else
 	{
-		if (flag == 2 && (*type == 'd' || *type == 'D') && ft_whichsign(s, data) == 0) //
-			t.print += ft_putchar_fdr('-', fd); // le '-' avant le field de 00000... !
+		if (flag == 2 && (*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
+			ft_putchar_fdr('-', fd); // le '-' avant le field de 00000... !
 		//field = ft_evaluate_len(type, data, precision) + t.print;
 		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision) + t.print), flag, fd);
 		ft_flag(s, data, fd, &flag);
+		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
+			ft_putchar_fdr('-', fd); // le '-' avant le field de 00000... !
 		t.print += ft_printdata(type, data, fd, precision);
 	}
 	t.conv = type - s + 1;

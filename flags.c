@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/20 17:19:09 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/21 14:45:24 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
 		else if (*s == '+')
 			ft_issigned(t) && (ret.print += ft_flagp(s, data, &h, fd));
 		else if (*s == ' ')
-			ft_whichsign(s, data) == 1 ? ret.print += ft_flags(h, t, fd, &ss) : 0;
+			ft_whichsign(s, data) == 1 && ft_strrchr(s, '+') == NULL ? ret.print += ft_flags(h, t, fd, &ss) : 0;
 		else
 			break ;
 	}
@@ -135,7 +135,7 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 		else if (*s == ' ')
 		{
 			if (ss == FALSE && ft_whichsign(s, data) == 1 && h != TRUE
-					&& ft_issigned(t))
+					&& ft_strrchr(s, '+') == NULL && ft_issigned(t))
 			{
 				ss = TRUE;
 				r.print += 1;

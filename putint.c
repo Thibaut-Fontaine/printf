@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 08:45:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/20 22:11:53 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/21 15:50:47 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ ssize_t				ft_putint_fdr(intmax_t i, int fd)
 
 	ret = 0;
 	if (i + 1 == -9223372036854775807)
-		return (ft_putstr_fdr("-9223372036854775808", fd));
+		return (ft_putstr_fdr("9223372036854775808", fd) + 1);
 	if (i < 0)
 	{
-		ret += ft_putchar_fdr('-', fd);
+		ret += 1;
 		i = -i;
 	}
 	if (i / 10 != 0)
