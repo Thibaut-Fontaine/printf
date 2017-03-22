@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 15:50:23 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/22 18:27:00 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,15 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	if (flag == 1)
 	{
 		ft_flag(s, data, fd);
-		if ((*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0)
+		if ((*type == 'd' || *type == 'D' || *type == 'i')
+				&& ft_whichsign(s, data) == 0)
 			ft_putchar_fdr('-', fd);
+		if ((*type == 'd' || *type == 'D' || *type == 'i')
+				&& ft_whichsign(s, data) == 1 && ft_strchr(s, '+') != NULL
+				&& ft_strchr(s, '+') < type)
+			ft_putchar_fdr('+', fd);
 		if ((*type == 'x' || * type == 'X') && data != 0
-				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type) // flag 0X / 0x
+				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type)
 		{
 			ft_putchar_fdr('0', fd);
 			ft_putchar_fdr(*type, fd);
@@ -111,20 +116,30 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	}
 	else
 	{
-		if (flag == 2 && (*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
+		if (flag == 2 && (*type == 'd' || *type == 'D' || *type == 'i')
+				&& ft_whichsign(s, data) == 0)
 			ft_putchar_fdr('-', fd);
+		if (flag == 2 && (*type == 'd' || *type == 'D' || *type == 'i')
+				&& ft_whichsign(s, data) == 1 && ft_strchr(s, '+') != NULL
+				&& ft_strchr(s, '+') < type)
+			ft_putchar_fdr('+', fd);
 		if (flag == 2 && (*type == 'x' || * type == 'X') && data != 0
-				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type) // flag 0X / 0x
+				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type)
 		{
 			ft_putchar_fdr('0', fd);
 			ft_putchar_fdr(*type, fd);
 		}
 		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision) + t.print), flag, fd);
 		ft_flag(s, data, fd);
-		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
+		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i')
+				&& ft_whichsign(s, data) == 0)
 			ft_putchar_fdr('-', fd);
+		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i')
+				&& ft_whichsign(s, data) == 1 && ft_strchr(s, '+') != NULL
+				&& ft_strchr(s, '+') < type)
+			ft_putchar_fdr('+', fd);
 		if (flag == 0 && (*type == 'x' || * type == 'X') && data != 0
-				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type) // flag 0X / 0x
+				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type)
 		{
 			ft_putchar_fdr('0', fd);
 			ft_putchar_fdr(*type, fd);
