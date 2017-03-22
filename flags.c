@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 00:56:03 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/22 01:33:19 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 		else if (*s == ' ')
 		{
 			if (ss == FALSE && ft_whichsign(s, data) == 1 && h != TRUE
-					&& ft_strchr(s, '+') == NULL && ft_strchr(s, '+') < t && ft_issigned(*t))
+					&& ft_strchr(s, '+') == NULL && ft_strchr(s, '+') < t
+					&& ft_issigned(*t))
 			{
 				ss = TRUE;
 				r.print += 1;

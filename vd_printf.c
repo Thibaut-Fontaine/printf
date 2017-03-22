@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 01:04:24 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/22 01:36:09 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,35 +86,31 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	int			flag;
 	const char	*type;
 	int			precision;
-	//int			field;
 
 	t.print = 0;
 	type = ft_gettype(s);
 	t.conv = type - s;
 	if (*type == '\0')
 		return (t);
-	t = ft_flag0m(s, data, &flag); // n'ecrit rien mais return print, conv et flag
-	// ** // t = ft_flag(s, data, fd, &flag); // prblm flag affichage avant le field
-	// et prblm pour affichage du 0 si t == 'o'
-	if ((precision = ft_getprecision(s, *type)) != -1 && flag != 1) // si precision alors flag 0 ignore
+	t = ft_flag0m(s, data, &flag);
+	if ((precision = ft_getprecision(s, *type)) != -1 && flag != 1)
 		flag = 0;
-	if (flag == 1) // ?
+	if (flag == 1)
 	{
 		ft_flag(s, data, fd);
-		if ((*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
-			ft_putchar_fdr('-', fd); // le '-' avant le field de 00000... !
-		t.print += ft_printdata(type, data, fd, precision); // +=
+		if ((*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0)
+			ft_putchar_fdr('-', fd);
+		t.print += ft_printdata(type, data, fd, precision);
 		t.print += ft_field(s + t.conv, t.print, flag, fd);
 	}
 	else
 	{
 		if (flag == 2 && (*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
-			ft_putchar_fdr('-', fd); // le '-' avant le field de 00000... !
-		//field = ft_evaluate_len(type, data, precision) + t.print;
+			ft_putchar_fdr('-', fd);
 		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision) + t.print), flag, fd);
 		ft_flag(s, data, fd);
 		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
-			ft_putchar_fdr('-', fd); // le '-' avant le field de 00000... !
+			ft_putchar_fdr('-', fd);
 		t.print += ft_printdata(type, data, fd, precision);
 	}
 	t.conv = type - s + 1;
