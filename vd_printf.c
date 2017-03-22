@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 01:36:09 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/22 15:50:23 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,12 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 		ft_flag(s, data, fd);
 		if ((*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0)
 			ft_putchar_fdr('-', fd);
+		if ((*type == 'x' || * type == 'X') && data != 0
+				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type) // flag 0X / 0x
+		{
+			ft_putchar_fdr('0', fd);
+			ft_putchar_fdr(*type, fd);
+		}
 		t.print += ft_printdata(type, data, fd, precision);
 		t.print += ft_field(s + t.conv, t.print, flag, fd);
 	}
@@ -107,10 +113,22 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	{
 		if (flag == 2 && (*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
 			ft_putchar_fdr('-', fd);
+		if (flag == 2 && (*type == 'x' || * type == 'X') && data != 0
+				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type) // flag 0X / 0x
+		{
+			ft_putchar_fdr('0', fd);
+			ft_putchar_fdr(*type, fd);
+		}
 		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision) + t.print), flag, fd);
 		ft_flag(s, data, fd);
 		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i') && ft_whichsign(s, data) == 0) //
 			ft_putchar_fdr('-', fd);
+		if (flag == 0 && (*type == 'x' || * type == 'X') && data != 0
+				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type) // flag 0X / 0x
+		{
+			ft_putchar_fdr('0', fd);
+			ft_putchar_fdr(*type, fd);
+		}
 		t.print += ft_printdata(type, data, fd, precision);
 	}
 	t.conv = type - s + 1;

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 01:33:19 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/22 15:30:45 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // pour t == 'o' n'ecrire le 0 !!
 // que si il n'y en a pas deja sur la sortie (juste avant)
-static size_t		ft_flagtag(char t, int fd, uintmax_t data, t_bool *tag)
+static size_t		ft_flagtag(char t, int fd, t_bool *tag)
 {
 	size_t			r;
 
@@ -22,13 +22,8 @@ static size_t		ft_flagtag(char t, int fd, uintmax_t data, t_bool *tag)
 	if (*tag != TRUE)
 	{
 		*tag = TRUE;
-		if (t == 'o' || t == 'x' || t == 'X')
-		{
-			if (t != 'o' && data == 0)
-				return (0);
-			r += ft_putchar_fdr('0', fd);
-			t != 'o' ? r += ft_putchar_fdr(t, fd) : 0;
-		}
+		if (t == 'o')
+			r += ft_putchar_fdr('0', fd); //
 	}
 	return (r);
 }
@@ -76,7 +71,7 @@ void				ft_flag(const char *s, uintmax_t data, int fd)
 	while (++s)
 	{
 		if (*s == '#')
-			ft_flagtag(*t, fd, data, &tag);
+			ft_flagtag(*t, fd, &tag);
 		else if (*s == '0')
 			;
 		else if (*s == '-')
