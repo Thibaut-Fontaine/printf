@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/19 19:53:25 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/22 00:55:59 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int					ft_dprintf(int fd, const char *format, ...);
 int					ft_vprintf(const char *format, va_list ap);
 int					ft_vdprintf(int fd, const char *format, va_list ap);
 
-t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag);
+void				ft_flag(const char *s, uintmax_t data, int fd);
 t_size				ft_flag0m(const char *s, uintmax_t data, int *flag);
 int					ft_issigned(char format_c);
 int					ft_whichsign(const char *s, intmax_t i);

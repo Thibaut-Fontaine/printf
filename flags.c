@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/21 18:41:34 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/22 00:56:03 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,38 +61,34 @@ static size_t		ft_flagp(const char *s, uintmax_t data, t_bool *h, int fd)
 ** dans t.conv : le nombre de caracteres "passes"
 */
 
-t_size				ft_flag(const char *s, uintmax_t data, int fd, int *flag)
+void				ft_flag(const char *s, uintmax_t data, int fd)
 {
-	t_size			ret;
 	const char		*t;
 	t_bool			h;
 	t_bool			tag;
 	t_bool			ss;
 
-	*flag = 0;
-	ret.conv = 0;
-	ret.print = 0;
 	h = FALSE;
 	t = ft_gettype(s);
 
 	tag = FALSE;
 	ss = FALSE;
-	while (++s && ++ret.conv)
+	while (++s)
 	{
 		if (*s == '#')
-			ret.print += ft_flagtag(*t, fd, data, &tag);
+			ft_flagtag(*t, fd, data, &tag);
 		else if (*s == '0')
-			*flag != 1 && (*flag = 2);
+			;
 		else if (*s == '-')
-			*flag = 1;
+			;
 		else if (*s == '+')
-			ft_issigned(*t) && (ret.print += ft_flagp(s, data, &h, fd));
+			ft_issigned(*t) && (ft_flagp(s, data, &h, fd));
 		else if (*s == ' ')
-			ft_whichsign(s, data) == 1 && ft_strchr(s, '+') == NULL && ft_strchr(s, '+') < t ? ret.print += ft_flags(h, *t, fd, &ss) : 0;
+			ft_whichsign(s, data) == 1 && ft_strchr(s, '+') == NULL
+				&& ft_strchr(s, '+') < t ? ft_flags(h, *t, fd, &ss) : 0;
 		else
 			break ;
 	}
-	return (ret);
 }
 
 t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
