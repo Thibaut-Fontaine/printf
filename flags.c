@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 23:00:36 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 06:34:05 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 // pour t == 'o' n'ecrire le 0 !!
 // que si il n'y en a pas deja sur la sortie (juste avant)
+
 static size_t		ft_flagtag(char t, int fd, t_bool *tag)
 {
 	size_t			r;
@@ -55,16 +56,13 @@ void				ft_flag(const char *s, uintmax_t data, int fd)
 
 	h = FALSE;
 	t = ft_gettype(s);
-
 	tag = FALSE;
 	ss = FALSE;
 	while (++s)
 	{
 		if (*s == '#')
 			ft_flagtag(*t, fd, &tag);
-		else if (*s == '0')
-			;
-		else if (*s == '-')
+		else if (*s == '0' || *s == '-')
 			;
 		else if (*s == '+')
 			h = TRUE;
@@ -80,14 +78,13 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 {
 	t_size			r;
 	const char		*t;
-
-	*flag = 0;
-	r.conv = 0;
-	r.print = 0;
 	t_bool			tag;
 	t_bool			ss;
 	t_bool			h;
 
+	*flag = 0;
+	r.conv = 0;
+	r.print = 0;
 	h = FALSE;
 	tag = FALSE;
 	ss = FALSE;
