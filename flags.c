@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 18:23:01 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/22 23:00:36 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,6 @@ static size_t		ft_flags(t_bool h, char tt, int fd, t_bool *ss)
 	return (0);
 }
 
-/*static size_t		ft_flagp(const char *s, uintmax_t data, t_bool *h, int fd)
-{
-	if (*h != TRUE)
-	{
-		*h = TRUE;
-		return (ft_putchar_fdr(ft_whichsign(s, data) ? '+' : 0, fd));
-	}
-	return (0);
-}*/
-
 /*
 ** affiche les caracteres specifies par les flags en fonction du type demande
 ** valeur de renvoi :
@@ -77,7 +67,7 @@ void				ft_flag(const char *s, uintmax_t data, int fd)
 		else if (*s == '-')
 			;
 		else if (*s == '+')
-			h = TRUE;//ft_issigned(*t) && (ft_flagp(s, data, &h, fd));
+			h = TRUE;
 		else if (*s == ' ')
 			ft_whichsign(s, data) == 1 && ft_strchr(s, '+') == NULL
 				&& ft_strchr(s, '+') < t ? ft_flags(h, *t, fd, &ss) : 0;
