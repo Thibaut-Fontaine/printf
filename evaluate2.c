@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 19:54:50 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 03:04:52 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 04:19:19 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,10 @@ size_t			ft_evaluatepbase(uintmax_t data, int base)
 		++r;
 	}
 	return (r);
+}
+
+size_t			ft_evaluintret(const char *t, uintmax_t data)
+{
+	return (ft_evaluatepbase((unsigned long int)data, *t == 'X'
+				|| *t == 'x' ? 16 : ((*t == 'u') * 10 + (*t == 'o') * 8)));
 }

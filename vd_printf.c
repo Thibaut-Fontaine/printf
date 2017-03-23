@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 03:28:34 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 05:19:03 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,31 @@ size_t			ft_field(const char *s, size_t n, int flag, int fd)
 	return (t);
 }
 
+void			ft_flagspace(const char *s, t_datas *dd, t_size *t, int *flag)
+{
+	const char	*type;
+	size_t		ret;
+
+	ret = 0;
+	type = ft_gettype(s);
+	ft_flag(s, dd->data, dd->fd);
+	if ((*type == 'd' || *type == 'D' || *type == 'i')
+			&& ft_whichsign(s, dd->data) == 0)
+		ft_putchar_fdr('-', dd->fd);
+	if ((*type == 'd' || *type == 'D' || *type == 'i')
+			&& ft_whichsign(s, dd->data) == 1 && ft_strchr(s, '+') != NULL
+			&& ft_strchr(s, '+') < type)
+		ft_putchar_fdr('+', dd->fd);
+	if ((*type == 'x' || *type == 'X') && (dd->data) != 0
+			&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type)
+	{
+		ft_putchar_fdr('0', dd->fd);
+		ft_putchar_fdr(*type, dd->fd);
+	}
+	t->print += ft_printdata(type, dd->data, dd->fd, ft_getprecision(s, *type));
+	t->print += ft_field(s + t->conv, t->print, *flag, dd->fd);
+}
+
 /*
 ** parse, puis affiche une conversion.
 ** renvoie le nombre de caracteres lus sur format (t.conv)
@@ -56,6 +81,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	int			flag;
 	const char	*type;
 	int			precision;
+	t_datas		dd;
 
 	t.print = 0;
 	type = ft_gettype(s);
@@ -65,57 +91,18 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 	t = ft_flag0m(s, data, &flag);
 	if ((precision = ft_getprecision(s, *type)) != -1 && flag != 1)
 		flag = 0;
+	dd.data = data;
+	dd.fd = fd;
 	if (flag == 1)
-	{
-		ft_flag(s, data, fd);
-		if ((*type == 'd' || *type == 'D' || *type == 'i')
-				&& ft_whichsign(s, data) == 0)
-			ft_putchar_fdr('-', fd);
-		if ((*type == 'd' || *type == 'D' || *type == 'i')
-				&& ft_whichsign(s, data) == 1 && ft_strchr(s, '+') != NULL
-				&& ft_strchr(s, '+') < type)
-			ft_putchar_fdr('+', fd);
-		if ((*type == 'x' || * type == 'X') && data != 0
-				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type)
-		{
-			ft_putchar_fdr('0', fd);
-			ft_putchar_fdr(*type, fd);
-		}
-		t.print += ft_printdata(type, data, fd, precision);
-		t.print += ft_field(s + t.conv, t.print, flag, fd);
-	}
+		ft_flagspace(s, &dd, &t, &flag);
 	else
 	{
-		if (flag == 2 && (*type == 'd' || *type == 'D' || *type == 'i')
-				&& ft_whichsign(s, data) == 0)
-			ft_putchar_fdr('-', fd);
-		if (flag == 2 && (*type == 'd' || *type == 'D' || *type == 'i')
-				&& ft_whichsign(s, data) == 1 && ft_strchr(s, '+') != NULL
-				&& ft_strchr(s, '+') < type)
-			ft_putchar_fdr('+', fd);
-		if (flag == 2 && (*type == 'x' || * type == 'X') && data != 0
-				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type)
-		{
-			ft_putchar_fdr('0', fd);
-			ft_putchar_fdr(*type, fd);
-		}
+		ft_fflag(s, flag, dd, 2);
 		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision)
 					+ t.print + ((precision != -1) * ft_issigned(*type)
 						* !ft_whichsign(type, data))), flag, fd);
 		ft_flag(s, data, fd);
-		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i')
-				&& ft_whichsign(s, data) == 0)
-			ft_putchar_fdr('-', fd);
-		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i')
-				&& ft_whichsign(s, data) == 1 && ft_strchr(s, '+') != NULL
-				&& ft_strchr(s, '+') < type)
-			ft_putchar_fdr('+', fd);
-		if (flag == 0 && (*type == 'x' || * type == 'X') && data != 0
-				&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type)
-		{
-			ft_putchar_fdr('0', fd);
-			ft_putchar_fdr(*type, fd);
-		}
+		ft_fflag(s, flag, dd, 0);
 		t.print += ft_printdata(type, data, fd, precision);
 		if ((precision != -1) && ft_issigned(*type)
 				&& !ft_whichsign(type, data))

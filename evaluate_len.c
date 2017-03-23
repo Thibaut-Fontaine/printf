@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 18:01:28 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/20 18:07:34 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 04:20:52 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ size_t			ft_evaluate_uint(const char *t, uintmax_t data)
 							((*t == 'u') * 10 + (*t == 'o') * 8)));
 		}
 		if (*(t - 1) == 'l' || *(t - 1) == 'j' || *(t - 1) == 'z')
-			return (ft_evaluatepbase((unsigned long int)data,
-						*t == 'X' || *t == 'x' ? 16 :
-						((*t == 'u') * 10 + (*t == 'o') * 8)));
+			return (ft_evaluintret(t, data));
 		return (ft_evaluatepbase((unsigned int)data, *t == 'X' || *t == 'x' ?
 					16 : ((*t == 'u') * 10 + (*t == 'o') * 8)));
 	}
@@ -112,12 +110,12 @@ size_t			ft_evaluate_len(const char *t, uintmax_t data, int precision)
 
 	if (*t == 'U' || *t == 'u' || *t == 'o' || *t == 'O' || *t == 'x'
 			|| *t == 'X')
-		{
-			if (data == 0 && precision == 0)
-				return (0);
-			return ((int)(r = ft_evaluate_uint(t, data)) < precision ?
-					precision : r);
-		}
+	{
+		if (data == 0 && precision == 0)
+			return (0);
+		return ((int)(r = ft_evaluate_uint(t, data)) < precision ?
+				precision : r);
+	}
 	else if (*t == 'd' || *t == 'i' || *t == 'D')
 	{
 		if (data == 0 && precision == 0)

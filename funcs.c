@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 08:58:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/21 16:08:39 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 05:04:15 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,22 @@ size_t		ft_putnc(char c, size_t i, int fd)
 	return (ret);
 }
 
-size_t		ft_diff(uintmax_t a, uintmax_t b)
+void		ft_fflag(const char *s, int flag, t_datas dd, int testflag)
 {
-	return (a > b ? a - b : b - a);
+	const char *type;
+
+	type = ft_gettype(s);
+	if (flag == testflag && (*type == 'd' || *type == 'D' || *type == 'i')
+			&& ft_whichsign(s, dd.data) == 0)
+		ft_putchar_fdr('-', dd.fd);
+	if (flag == testflag && (*type == 'd' || *type == 'D' || *type == 'i')
+			&& ft_whichsign(s, dd.data) == 1 && ft_strchr(s, '+') != NULL
+			&& ft_strchr(s, '+') < type)
+		ft_putchar_fdr('+', dd.fd);
+	if (flag == testflag && (*type == 'x' || *type == 'X') && dd.data != 0
+			&& ft_strchr(s, '#') != NULL && ft_strchr(s, '#') < type)
+	{
+		ft_putchar_fdr('0', dd.fd);
+		ft_putchar_fdr(*type, dd.fd);
+	}
 }

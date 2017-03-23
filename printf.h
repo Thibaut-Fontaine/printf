@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 00:55:59 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 05:04:13 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ typedef struct		s_size
 	size_t			conv;
 }					t_size;
 
+typedef struct		s_datas
+{
+	uintmax_t		data;
+	int				fd;
+}					t_datas;
+
 typedef ssize_t		(*t_ptft)(uintmax_t d, int fd);
 
 int					ft_printf(const char *format, ...);
@@ -28,6 +34,7 @@ int					ft_dprintf(int fd, const char *format, ...);
 int					ft_vprintf(const char *format, va_list ap);
 int					ft_vdprintf(int fd, const char *format, va_list ap);
 
+void				ft_fflag(const char *s, int flag, t_datas dd, int testflg);
 void				ft_flag(const char *s, uintmax_t data, int fd);
 t_size				ft_flag0m(const char *s, uintmax_t data, int *flag);
 int					ft_issigned(char format_c);
@@ -49,7 +56,6 @@ ssize_t				ft_puthexx_fdr(uintmax_t i, int fd);
 ssize_t				ft_typeint(const char *t, uintmax_t data, int fd);
 ssize_t				ft_typeuint(const char *t, uintmax_t data, int fd);
 
-
 size_t				ft_evaluate_len(const char *t, uintmax_t data,
 		int precision);
 size_t				ft_evaluatepint(intmax_t data);
@@ -58,5 +64,6 @@ size_t				ft_evaluate_int(const char *t, uintmax_t data);
 size_t				ft_evaluate_uint(const char *t, uintmax_t data);
 size_t				ft_putnc(char c, size_t i, int fd);
 size_t				ft_diff(uintmax_t a, uintmax_t b);
+size_t				ft_evaluintret(const char *t, uintmax_t data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 21:29:39 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 03:02:20 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 03:54:26 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,28 @@ ssize_t				(*ft_type(const char *f))(uintmax_t d, int fd)
 	return (NULL);
 }
 
+static ssize_t		ft_printstring(const char *t, uintmax_t data, int fd,
+		int precision)
+{
+	if (*t == 'S' || *t == 's')
+	{
+		if (*t == 's' && *(t - 1) != 'l')
+		{
+			if (data == 0)
+				data = (uintmax_t)"(null)";
+			if (precision != -1)
+				return (ft_putnstr_fdr((char*)data, precision, fd));
+			return (ft_putstr_fdr((char*)data, fd));
+		}
+		if (data == 0)
+			data = (uintmax_t)L"(null)";
+		if (precision != -1)
+			return (ft_putnwstr_fdr((wchar_t*)data, precision, fd));
+		return (ft_putwstr_fdr((wchar_t*)data, fd));
+	}
+	return (ft_type(t)(data, fd));
+}
+
 /*
 ** faire un cast specifique a chaque longueur
 ** ne pas gerer la precison si == -1
@@ -94,34 +116,17 @@ ssize_t				ft_printdata(const char *t, uintmax_t data, int fd,
 		if (precision != -1)
 			ft_putnc('0', precision > (ret = ft_evaluate_uint(t, data))
 					? precision - ret : 0, fd);
-		return (precision > (ret = ft_typeuint(t, data, fd)) ? precision : ret);
+		return (precision > (ret = ft_typeuint(t, data, fd)) ?
+				precision : ret);
 	}
 	else if (*t == 'd' || *t == 'i' || *t == 'D')
 	{
 		if (precision == 0 && data == 0)
 			return (0);
 		if (precision != -1)
-		{
-			ft_putnc('0', precision > (ret = ft_evaluate_int(t, data) - !ft_whichsign(t, data))
-					? precision - ret : 0, fd);
-		}
+			ft_putnc('0', precision > (ret = ft_evaluate_int(t, data)
+						- !ft_whichsign(t, data)) ? precision - ret : 0, fd);
 		return (precision > (ret = ft_typeint(t, data, fd)) ? precision : ret);
 	}
-		else if (*t == 'S' || *t == 's')
-	{
-		if (*t == 's' && *(t - 1) != 'l')
-		{
-			if (data == 0)
-				data = (uintmax_t)"(null)";
-			if (precision != -1)
-				return (ft_putnstr_fdr((char*)data, precision, fd));
-			return (ft_putstr_fdr((char*)data, fd));
-		}
-		if (data == 0)
-			data = (uintmax_t)L"(null)";
-		if (precision != -1)
-			return (ft_putnwstr_fdr((wchar_t*)data, precision, fd));
-		return (ft_putwstr_fdr((wchar_t*)data, fd));
-	}
-	return (ft_type(t)(data, fd));
+	return (ft_printstring(t, data, fd, precision));
 }
