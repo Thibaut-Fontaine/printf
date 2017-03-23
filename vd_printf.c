@@ -6,41 +6,11 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 03:12:49 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 03:28:34 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./printf.h"
-
-/*
-** sSpdDioOuUxXcC
-** %%
-** flags #0-+ et espace
-** precision (.)
-** taille min de champ
-** modifs hh h l ll j z
-** /
-** dans l'ordre :
-** -> caractere %
-** -> caractere d'attribut : #, 0, -, + et espace
-** -> largeur minimale de champ : (int) qui definit espaces avant d'afficher
-** si le int est neg, revient a avoir le - dans le caractere d'attribut
-** -> precision : voir man. fait varier le nbr de caracs qui s'affichent
-** -> modificateur de longueur : modifie la taille de la zone mem. a convertir
-** -> indicateur de conversion : definie de type a convertir
-*/
-
-/*
-** flags :
-** '#' -> 0 pour o et 0x / 0X pour x et X
-** '0' -> afficher des zeros plutot que des espaces
-** '-' -> affiche tout colle a gauche plutot qu'a droite et annule le 0
-** '+' -> affiche un + si la conversion signee est positive, annule l'espace
-** ' ' -> affiche un espace si la conversion est signee
-** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-**  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-*/
 
 /*
 ** return the precision for the actual conversion, or return -1 if there is no.
@@ -129,7 +99,9 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 			ft_putchar_fdr('0', fd);
 			ft_putchar_fdr(*type, fd);
 		}
-		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision) + t.print + ((precision != -1) * ft_issigned(*type) * !ft_whichsign(type, data))), flag, fd);
+		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision)
+					+ t.print + ((precision != -1) * ft_issigned(*type)
+						* !ft_whichsign(type, data))), flag, fd);
 		ft_flag(s, data, fd);
 		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i')
 				&& ft_whichsign(s, data) == 0)
@@ -145,7 +117,8 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 			ft_putchar_fdr(*type, fd);
 		}
 		t.print += ft_printdata(type, data, fd, precision);
-		if ((precision != -1) && ft_issigned(*type) && !ft_whichsign(type, data))
+		if ((precision != -1) && ft_issigned(*type)
+				&& !ft_whichsign(type, data))
 			t.print += 1;
 	}
 	t.conv = type - s + 1;
@@ -169,7 +142,7 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 	{
 		if (format[i] == '%')
 		{
-			if ((chr = ft_strchr(format + i + 1, '%')) != NULL // si %...% avec aucun indic. de conv entre les deux
+			if ((chr = ft_strchr(format + i + 1, '%')) != NULL
 					&& chr < ft_gettype(format + i))
 			{
 				tmp.conv = chr - (format + i);
