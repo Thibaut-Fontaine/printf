@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/22 18:27:00 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/23 03:12:49 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 			ft_putchar_fdr('0', fd);
 			ft_putchar_fdr(*type, fd);
 		}
-		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision) + t.print), flag, fd);
+		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision) + t.print + ((precision != -1) * ft_issigned(*type) * !ft_whichsign(type, data))), flag, fd);
 		ft_flag(s, data, fd);
 		if (flag == 0 && (*type == 'd' || *type == 'D' || *type == 'i')
 				&& ft_whichsign(s, data) == 0)
@@ -145,6 +145,8 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 			ft_putchar_fdr(*type, fd);
 		}
 		t.print += ft_printdata(type, data, fd, precision);
+		if ((precision != -1) && ft_issigned(*type) && !ft_whichsign(type, data))
+			t.print += 1;
 	}
 	t.conv = type - s + 1;
 	return (t);
