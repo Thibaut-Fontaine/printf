@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 19:54:50 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 04:19:19 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/24 20:19:27 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,22 @@ size_t			ft_evaluintret(const char *t, uintmax_t data)
 {
 	return (ft_evaluatepbase((unsigned long int)data, *t == 'X'
 				|| *t == 'x' ? 16 : ((*t == 'u') * 10 + (*t == 'o') * 8)));
+}
+
+void			ft_flagf(const char *s, t_size *t, t_datas dd, int flag)
+{
+	const char	*type;
+
+	type = ft_gettype(s);
+	ft_fflag(s, flag, dd, 2);
+	t->print += ft_field(s + t->conv, (ft_evaluate_len(type, dd.data,
+					dd.precision) + t->print + ((dd.precision != -1)
+						* ft_issigned(*type) * !ft_whichsign(type, dd.data))),
+			flag, dd.fd);
+	ft_flag(s, dd.data, dd.fd);
+	ft_fflag(s, flag, dd, 0);
+	t->print += ft_printdata(type, dd.data, dd.fd, dd.precision);
+	if ((dd.precision != -1) && ft_issigned(*type)
+			&& !ft_whichsign(type, dd.data))
+		t->print += 1;
 }

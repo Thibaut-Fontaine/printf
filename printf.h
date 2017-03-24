@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/24 18:17:35 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/24 20:15:49 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_datas
 {
 	uintmax_t		data;
 	int				fd;
+	int				precision;
 }					t_datas;
 
 typedef ssize_t		(*t_ptft)(uintmax_t d, int fd);
@@ -34,8 +35,11 @@ int					ft_dprintf(int fd, const char *format, ...);
 int					ft_vprintf(const char *format, va_list ap);
 int					ft_vdprintf(int fd, const char *format, va_list ap);
 
+size_t				ft_field(const char *s, size_t n, int flag, int fd);
 t_size				ft_convert_print(const char *s, uintmax_t data, int fd);
-int					ft_pourcent(const char *format, size_t *r, size_t *i, int fd);
+int					ft_pourcent(const char *format, size_t *r, size_t *i,
+		int fd);
+void				ft_flagf(const char *s, t_size *t, t_datas dd, int flag);
 void				ft_fflag(const char *s, int flag, t_datas dd, int testflg);
 void				ft_flag(const char *s, uintmax_t data, int fd);
 t_size				ft_flag0m(const char *s, uintmax_t data, int *flag);

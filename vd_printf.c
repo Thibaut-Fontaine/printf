@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/24 18:19:56 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/24 20:20:00 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,8 @@ t_size			ft_convert_print(const char *s, uintmax_t data, int fd)
 		ft_flagspace(s, &dd, &t, &flag);
 	else
 	{
-		ft_fflag(s, flag, dd, 2);
-		t.print += ft_field(s + t.conv, (ft_evaluate_len(type, data, precision)
-					+ t.print + ((precision != -1) * ft_issigned(*type)
-						* !ft_whichsign(type, data))), flag, fd);
-		ft_flag(s, data, fd);
-		ft_fflag(s, flag, dd, 0);
-		t.print += ft_printdata(type, data, fd, precision);
-		if ((precision != -1) && ft_issigned(*type)
-				&& !ft_whichsign(type, data))
-			t.print += 1;
+		dd.precision = precision;
+		ft_flagf(s, &t, dd, flag);
 	}
 	t.conv = type - s + 1;
 	return (t);
