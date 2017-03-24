@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 05:19:03 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/24 18:19:56 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 	size_t		i;
 	size_t		ret;
 	t_size		tmp;
-	char		*chr;
 
 	i = 0;
 	ret = 0;
@@ -129,19 +128,7 @@ int				ft_vdprintf(int fd, const char *format, va_list ap)
 	{
 		if (format[i] == '%')
 		{
-			if ((chr = ft_strchr(format + i + 1, '%')) != NULL
-					&& chr < ft_gettype(format + i))
-			{
-				tmp.conv = chr - (format + i);
-				chr = ft_memdup(format + i, tmp.conv);
-				chr[tmp.conv + 1] = '\0';
-				chr[tmp.conv] = 'c';
-				tmp = ft_convert_print(chr, '%', fd);
-				free(chr);
-				ret += tmp.print;
-				i += tmp.conv;
-			}
-			else
+			if (ft_pourcent(format, &ret, &i, fd))
 			{
 				tmp = ft_convert_print(format + i, va_arg(ap, uintmax_t), fd);
 				i += tmp.conv;

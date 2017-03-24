@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 05:04:13 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/24 18:17:35 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int					ft_dprintf(int fd, const char *format, ...);
 int					ft_vprintf(const char *format, va_list ap);
 int					ft_vdprintf(int fd, const char *format, va_list ap);
 
+t_size				ft_convert_print(const char *s, uintmax_t data, int fd);
+int					ft_pourcent(const char *format, size_t *r, size_t *i, int fd);
 void				ft_fflag(const char *s, int flag, t_datas dd, int testflg);
 void				ft_flag(const char *s, uintmax_t data, int fd);
 t_size				ft_flag0m(const char *s, uintmax_t data, int *flag);

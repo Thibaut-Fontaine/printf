@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 08:58:23 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 05:04:15 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/24 18:18:08 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,26 @@ void		ft_fflag(const char *s, int flag, t_datas dd, int testflag)
 		ft_putchar_fdr('0', dd.fd);
 		ft_putchar_fdr(*type, dd.fd);
 	}
+}
+
+int			ft_pourcent(const char *format, size_t *r, size_t *i, int fd)
+{
+	char	*chr;
+	size_t	len;
+	t_size	t;
+
+	if ((chr = ft_strchr(format + *i + 1, '%')) != NULL
+			&& chr < ft_gettype(format + *i))
+	{
+		len = chr - (format + *i);
+		chr = ft_memdup(format + *i, len);
+		chr[len + 1] = '\0';
+		chr[len] = 'c';
+		t = ft_convert_print(chr, '%', fd);
+		free(chr);
+		*r += t.print;
+		*i += t.conv;
+		return (0);
+	}
+	return (1);
 }
