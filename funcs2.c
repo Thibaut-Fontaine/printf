@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 05:50:07 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/25 21:30:24 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 21:55:56 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,27 @@ size_t			ft_flag_htag(const char *s, t_bole *bb, uintmax_t data,
 	return (0);
 }
 
+int				ft_flag_szm(const char *s, t_bole *bb, uintmax_t data,
+		int *flag)
+{
+	const char *t;
 
-
-
-
-
-
-
-
-
+	t = ft_gettype(s);
+	if (*s == ' ')
+	{
+		if (bb->ss == FALSE && ft_whichsign(s, data) == 1 && bb->h != TRUE
+				&& ft_strchr(s, '+') == NULL && ft_strchr(s, '+') < t
+				&& ft_issigned(*t))
+		{
+			bb->ss = TRUE;
+			return (1);
+		}
+	}
+	else if (*s == '0')
+		*flag != 1 && (*flag = 2);
+	else if (*s == '-')
+		*flag = 1;
+	else
+		return (-1);
+	return (0);
+}

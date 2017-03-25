@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/25 21:30:59 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 22:00:09 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 	t_size			r;
 	const char		*t;
 	t_bole			bb;
+	int				szm;
 
 	ft_nln((intmax_t*)flag, 0) && ft_nln((intmax_t*)&r.conv, 0) &&
 		ft_nln((intmax_t*)&r.print, 0) && ft_nln((intmax_t*)&bb.h, 0) &&
@@ -101,29 +102,13 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 		if (*s == '#')
 			r.print += ft_flag_htag(s, &bb, data, flag);
 		else if (*s == '+')
-		{
-			if (bb.h == FALSE)
-			{
-				bb.h = TRUE;
-				r.print += ft_whichsign(s, data) ? 1 : 0;
-			}
-		}
-		else if (*s == ' ')
-		{
-			if (bb.ss == FALSE && ft_whichsign(s, data) == 1 && bb.h != TRUE
-					&& ft_strchr(s, '+') == NULL && ft_strchr(s, '+') < t
-					&& ft_issigned(*t))
-			{
-				bb.ss = TRUE;
-				r.print += 1;
-			}
-		}
-		else if (*s == '0')
-			*flag != 1 && (*flag = 2);
-		else if (*s == '-')
-			*flag = 1;
-		else
+			(bb.h == FALSE && ft_nln((intmax_t*)&bb.h, 1) &&
+			ft_nln((intmax_t*)&r.print, (ft_whichsign(s, data) ? 1 : 0)
+				+ r.print));
+		else if ((szm = ft_flag_szm(s, &bb, data, flag)) == -1)
 			break ;
+		else
+			r.print += szm;
 	}
 	return (r);
 }

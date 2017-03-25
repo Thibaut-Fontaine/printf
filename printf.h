@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/25 21:29:49 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 21:42:47 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,7 @@ size_t				ft_flag_o(const char *s, const char *t, uintmax_t data,
 int					ft_nln(intmax_t *n1, intmax_t n2);
 size_t				ft_flag_htag(const char *s, t_bole *bb, uintmax_t data,
 		int *flag);
+int					ft_flag_szm(const char *s, t_bole *bb, uintmax_t data,
+		int *flag);
+
 #endif
