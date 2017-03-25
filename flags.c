@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/25 06:43:28 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 21:30:59 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ static size_t		ft_flagtag(const char *s, t_datas dd, t_bool *tag,
 			return (0);
 		if (dd.data == 0 && precision == 0)
 			return (ft_putchar_fdr('0', dd.fd));
-		r = 0;
-		while (s[r] == '#' || s[r] == '0' || s[r] == '-' || s[r] == '+'
-				|| s[r] == ' ')
-			++r;
-		r = ft_atoi(s + r);
+		r = ft_flagtag_calculate(s);
 		if ((precision != -1 && (ft_evaluate_uint(t, dd.data) >=
 						(size_t)precision)) || (precision == -1 &&
 						((flag == 2 && ft_evaluate_uint(t, dd.data) >= r)
@@ -65,31 +61,27 @@ static size_t		ft_flags(t_bool h, char tt, int fd, t_bool *ss)
 void				ft_flag(const char *s, uintmax_t data, int fd, int flag)
 {
 	const char		*t;
-	t_bool			h;
-	t_bool			tag;
-	t_bool			ss;
+	t_bole			bb;
 	t_datas			dd;
 
-	h = FALSE;
+	bb.h = FALSE;
 	t = ft_gettype(s);
-	tag = FALSE;
-	ss = FALSE;
+	bb.tag = FALSE;
+	bb.ss = FALSE;
 	while (++s)
 	{
 		if (*s == '#')
 		{
 			dd.fd = fd;
 			dd.data = data;
-			ft_flagtag(s, dd, &tag, flag);
+			ft_flagtag(s, dd, &bb.tag, flag);
 		}
-		else if (*s == '0' || *s == '-')
-			;
 		else if (*s == '+')
-			h = TRUE;
+			bb.h = TRUE;
 		else if (*s == ' ')
 			ft_whichsign(s, data) == 1 && ft_strchr(s, '+') == NULL
-				&& ft_strchr(s, '+') < t ? ft_flags(h, *t, fd, &ss) : 0;
-		else
+				&& ft_strchr(s, '+') < t ? ft_flags(bb.h, *t, fd, &bb.ss) : 0;
+		else if (*s != '0' && *s != '-')
 			break ;
 	}
 }
@@ -99,57 +91,15 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 	t_size			r;
 	const char		*t;
 	t_bole			bb;
-	int				p;
-	size_t			rr;
 
-	*flag = 0;
-	r.conv = 0;
-	r.print = 0;
-	bb.h = FALSE;
-	bb.tag = FALSE;
-	bb.ss = FALSE;
+	ft_nln((intmax_t*)flag, 0) && ft_nln((intmax_t*)&r.conv, 0) &&
+		ft_nln((intmax_t*)&r.print, 0) && ft_nln((intmax_t*)&bb.h, 0) &&
+		ft_nln((intmax_t*)&bb.tag, 0) && ft_nln((intmax_t*)&bb.ss, 0);
 	t = ft_gettype(s);
 	while (++s && ++r.conv)
 	{
 		if (*s == '#')
-		{
-			if (bb.tag == FALSE)
-			{
-				bb.tag = TRUE;
-				if ((*t == 'x' || *t == 'X') && data != 0)
-					r.print += 2;
-				else if (*t == 'o')
-				{
-					p = ft_getprecision(s, *t);
-					if (data == 0 && p == -1)
-						;
-					else
-					{
-						rr = 0;
-						if (data == 0 && p == 0)
-							r.print += 1;
-						else
-						{
-							while (s[rr] == '#' || s[rr] == '0' || s[rr] ==
-									'-' || s[rr] == '+' || s[rr] == ' ')
-								++rr;
-							rr = ft_atoi(s + rr);
-							if (p != -1)
-							{
-								if (ft_evaluate_uint(t, data) >= (size_t)p)
-									r.print += 1;
-							}
-							else
-							{
-								if ((*flag == 2 && ft_evaluate_uint(t, data)
-											>= rr) || *flag != 2)
-									r.print += 1;
-							}
-						}
-					}
-				}
-			}
-		}
+			r.print += ft_flag_htag(s, &bb, data, flag);
 		else if (*s == '+')
 		{
 			if (bb.h == FALSE)

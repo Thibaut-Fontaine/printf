@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/25 06:38:55 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 21:29:49 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ size_t				ft_putnc(char c, size_t i, int fd);
 size_t				ft_diff(uintmax_t a, uintmax_t b);
 size_t				ft_evaluintret(const char *t, uintmax_t data);
 
-t_datas				ft_flagtag_calculate(const char *s);
-
+size_t				ft_flagtag_calculate(const char *s);
+size_t				ft_flag_o(const char *s, const char *t, uintmax_t data,
+		int *flag);
+int					ft_nln(intmax_t *n1, intmax_t n2);
+size_t				ft_flag_htag(const char *s, t_bole *bb, uintmax_t data,
+		int *flag);
 #endif

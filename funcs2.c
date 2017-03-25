@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 05:50:07 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/25 06:43:47 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 21:30:24 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,76 @@
 ** separes cruellement du reste de leur environnement naturel par la norme.
 */
 
-// a refaire
-
-t_datas			ft_flagtag_calculate(const char *s)
+size_t			ft_flagtag_calculate(const char *s)
 {
-	const char	*t;
 	size_t		r;
-	int			precision;
-	t_datas		dd;
 
 	r = 0;
-	t = ft_gettype(s);
-	if (*t != 'o')
-	{
-		dd.fd = -1;
-		return (dd);
-	}
-	precision = ft_getprecision(s, *t);
 	while (s[r] == '#' || s[r] == '0' || s[r] == '-' || s[r] == '+'
 			|| s[r] == ' ')
 		++r;
-	r = ft_atoi(s + r);
-	dd.data = (uintmax_t)t;
-	dd.fd = r;
-	dd.precision = precision;
-	return (dd);
+	return (ft_atoi(s + r));
 }
+
+size_t			ft_flag_o(const char *s, const char *t, uintmax_t data,
+		int *flag)
+{
+	int			p;
+	size_t		rr;
+
+	p = ft_getprecision(s, *t);
+	if (!(data == 0 && p == -1))
+	{
+		if (data == 0 && p == 0)
+			return (1);
+		else
+		{
+			rr = ft_flagtag_calculate(s);
+			if (p != -1)
+			{
+				if (ft_evaluate_uint(t, data) >= (size_t)p)
+					return (1);
+			}
+			else
+			{
+				if ((*flag == 2 && ft_evaluate_uint(t, data)
+							>= rr) || *flag != 2)
+					return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+int				ft_nln(intmax_t *n1, intmax_t n2)
+{
+	*n1 = n2;
+	return (1);
+}
+
+size_t			ft_flag_htag(const char *s, t_bole *bb, uintmax_t data,
+		int *flag)
+{
+	const char	*t;
+
+	t = ft_gettype(s);
+	if (bb->tag == FALSE)
+	{
+		bb->tag = TRUE;
+		if ((*t == 'x' || *t == 'X') && data != 0)
+			return (2);
+		else if (*t == 'o')
+			return (ft_flag_o(s, t, data, flag));
+	}
+	return (0);
+}
+
+
+
+
+
+
+
+
+
+
