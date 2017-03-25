@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:05:27 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/25 01:47:14 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 06:38:55 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ typedef struct		s_datas
 	int				fd;
 	int				precision;
 }					t_datas;
+
+typedef struct		s_bole
+{
+	t_bool			tag;
+	t_bool			ss;
+	t_bool			h;
+}					t_bole;
 
 typedef ssize_t		(*t_ptft)(uintmax_t d, int fd);
 
@@ -72,5 +79,7 @@ size_t				ft_evaluate_uint(const char *t, uintmax_t data);
 size_t				ft_putnc(char c, size_t i, int fd);
 size_t				ft_diff(uintmax_t a, uintmax_t b);
 size_t				ft_evaluintret(const char *t, uintmax_t data);
+
+t_datas				ft_flagtag_calculate(const char *s);
 
 #endif
