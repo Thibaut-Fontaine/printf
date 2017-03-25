@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 16:08:13 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/24 20:20:00 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 05:36:27 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			ft_flagspace(const char *s, t_datas *dd, t_size *t, int *flag)
 
 	ret = 0;
 	type = ft_gettype(s);
-	ft_flag(s, dd->data, dd->fd);
+	ft_flag(s, dd->data, dd->fd, *flag);
 	if ((*type == 'd' || *type == 'D' || *type == 'i')
 			&& ft_whichsign(s, dd->data) == 0)
 		ft_putchar_fdr('-', dd->fd);

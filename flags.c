@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 10:38:15 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/23 06:34:05 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 05:37:10 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,40 @@
 // pour t == 'o' n'ecrire le 0 !!
 // que si il n'y en a pas deja sur la sortie (juste avant)
 
-static size_t		ft_flagtag(char t, int fd, t_bool *tag)
+static size_t		ft_flagtag(const char *s, t_datas dd, t_bool *tag,
+		int flag)
 {
 	size_t			r;
+	const char		*t;
+	int				precision;
 
-	r = 0;
+	t = ft_gettype(s);
+	if (*t != 'o')
+		return (0);
+	precision = ft_getprecision(s, *t);
 	if (*tag != TRUE)
 	{
 		*tag = TRUE;
-		if (t == 'o')
-			r += ft_putchar_fdr('0', fd); //
+		if (dd.data == 0 && precision == -1)
+			return (0);
+		if (dd.data == 0 && precision == 0)
+			return (ft_putchar_fdr('0', dd.fd));
+		r = 0;
+		while ((s[r] == '#' || s[r] == '0' || s[r] == '-' || s[r] == '+'
+					|| s[r] == ' ') && ++r);
+		r = ft_atoi(s + r);
+		if (precision != -1)
+		{
+			if (ft_evaluate_uint(t, dd.data) >= (size_t)precision)
+				return (ft_putchar_fdr('0', dd.fd));
+		}
+		else
+		{
+			if ((flag == 2 && ft_evaluate_uint(t, dd.data) >= r) || flag != 2)
+				return (ft_putchar_fdr('0', dd.fd));
+		}
 	}
-	return (r);
+	return (0);
 }
 
 static size_t		ft_flags(t_bool h, char tt, int fd, t_bool *ss)
@@ -47,12 +69,13 @@ static size_t		ft_flags(t_bool h, char tt, int fd, t_bool *ss)
 ** dans t.conv : le nombre de caracteres "passes"
 */
 
-void				ft_flag(const char *s, uintmax_t data, int fd)
+void				ft_flag(const char *s, uintmax_t data, int fd, int flag)
 {
 	const char		*t;
 	t_bool			h;
 	t_bool			tag;
 	t_bool			ss;
+	t_datas			dd;
 
 	h = FALSE;
 	t = ft_gettype(s);
@@ -61,7 +84,11 @@ void				ft_flag(const char *s, uintmax_t data, int fd)
 	while (++s)
 	{
 		if (*s == '#')
-			ft_flagtag(*t, fd, &tag);
+		{
+			dd.fd = fd;
+			dd.data = data;
+			ft_flagtag(s, dd, &tag, flag);
+		}
 		else if (*s == '0' || *s == '-')
 			;
 		else if (*s == '+')
@@ -98,8 +125,35 @@ t_size				ft_flag0m(const char *s, uintmax_t data, int *flag)
 				tag = TRUE;
 				if ((*t == 'x' || *t == 'X') && data != 0)
 					r.print += 2;
-				if (*t == 'o') // sauf si deja un '0'
-					r.print += 1;
+				else if (*t == 'o')
+				{
+					int precision = ft_getprecision(s, *t);
+					if (data == 0 && precision == -1)
+						;
+					else
+					{
+						size_t rr;
+						rr = 0;
+						if (data == 0 && precision == 0)
+							r.print += 1;
+						else
+						{
+							while ((s[rr] == '#' || s[rr] == '0' || s[rr] == '-' || s[rr] == '+'
+										|| s[rr] == ' ') && ++rr);
+							rr = ft_atoi(s + rr);
+							if (precision != -1)
+							{
+								if (ft_evaluate_uint(t, data) >= (size_t)precision)
+									r.print += 1;
+							}
+							else
+							{
+								if ((*flag == 2 && ft_evaluate_uint(t, data) >= rr) || *flag != 2)
+									r.print += 1;
+							}
+						}
+					}
+				}
 			}
 		}
 		else if (*s == '+')

@@ -6,7 +6,7 @@
 /*   By: tfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 19:54:50 by tfontain          #+#    #+#             */
-/*   Updated: 2017/03/24 20:19:27 by tfontain         ###   ########.fr       */
+/*   Updated: 2017/03/25 01:53:23 by tfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			ft_flagf(const char *s, t_size *t, t_datas dd, int flag)
 					dd.precision) + t->print + ((dd.precision != -1)
 						* ft_issigned(*type) * !ft_whichsign(type, dd.data))),
 			flag, dd.fd);
-	ft_flag(s, dd.data, dd.fd);
+	ft_flag(s, dd.data, dd.fd, flag);
 	ft_fflag(s, flag, dd, 0);
 	t->print += ft_printdata(type, dd.data, dd.fd, dd.precision);
 	if ((dd.precision != -1) && ft_issigned(*type)
